@@ -1,0 +1,7 @@
+{
+  "entrypoint": "index.html",
+  "compatibilityDate": "2026-11-25",
+  "modules": [],
+  "assetsDirectory": "./public",
+  "spa": true
+}

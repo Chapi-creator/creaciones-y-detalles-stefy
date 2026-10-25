@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creaciones y Detalles Stefy</title>
+  <style>
+    :root {
+      --bg: #fbf8f4;
+      --surface: #ffffff;
+      --text: #3a3a3a;
+      --muted: #6b6b6b;
+      --accent: #e08a5a;
+      --accent-soft: #f6e4d8;
+      --radius: 16px;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header.site {
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.05s ease, box-shadow 0.2s ease, background 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 18px rgba(224, 138, 90, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: #d57a4a;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(224, 138, 90, 0.42);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 40px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(32px, 6vw, 52px);
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 .accent {
+      color: var(--accent);
+    }
+
+    .hero p {
+      margin: 16px auto 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .hero-cta {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Section */
+    section.block {
+      padding: 48px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 440px;
+      margin-top: 6px;
+    }
+
+    /* Gallery grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05), 0 16px 36px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-media {
+      aspect-ratio: 3 / 4;
+      background: #f0ebe3;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-media .placeholder-illustration {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-media .placeholder-illustration svg {
+      width: 42px;
+      height: 42px;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+
+    .card-body {
+      padding: 12px 14px 14px;
+      flex: 1;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .card-title {
+      margin: 0 0 4px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .card-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-top: 10px;
+    }
+
+    /* Callouts */
+    .callouts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    .callout {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 20px 20px 22px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .callout-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+    }
+
+    .callout h3 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Personalization */
+    .personalization {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .personalization-text p {
+      margin: 0 0 12px;
+      color: var(--text);
+    }
+
+    .personalization-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .personalization-list li {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .personalization-list li svg {
+      width: 18px;
+      height: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Contact */
+    .contact-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-card .big-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .contact-card a {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .contact-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* Footer */
+    footer.site {
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 24px 0;
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .site-header-inner {
+        padding: 12px 16px;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .hero {
+        padding: 44px 0 28px;
+      }
+
+      .personalization {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="container site-header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">CS</div>
+        <span>Creaciones y Detalles Stefy</span>
+      </div>
+      <div class="nav-actions">
+        <a href="#contacto" class="btn btn-ghost">Contactar</a>
+        <a href="#whatsapp" class="btn btn-primary">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="hero-badge">Hechas a mano con cariño</span>
+      <h1>
+        Detalles <span class="accent">personalizados</span><br />
+        para momentos especiales
+      </h1>
+      <p>
+        Creaciones y Detalles Stefy hace muñecos, detalles navideños,
+        juegos para baños y mucho más. Cada pedido se arman sobre la marcha
+        para que quede como tú lo imaginaste.
+      </p>
+      <div class="hero-cta">
+        <a href="#whatsapp" class="btn btn-primary">Pedir por WhatsApp</a>
+        <a href="#galeria" class="btn btn-ghost">Ver catálogo</a>
+      </div>
+    </section>
+
+    <section id="galeria" class="block">
+      <div class="section-head">
+        <div>
+          <h2>Catálogo de creaciones</h2>
+          <p class="section-sub">
+            Una galería libre con algunos ejemplos de lo que Stefy suele hacer.
+            Los trabajos se arman sobre la marcha, así que estos son solo referentes.
+          </p>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <!-- Muñecos -->
+        <article class="card">
+          <div class="card-media">
+            <div class="placeholder-illustration">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="7" r="3.4" />
+                <path d="M5.6 21c0-4 3.4-6 7-6s7 2 7 6" />
+              </svg>
+              <span>Foto del muñeco</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Muñecos</h3>
+            <p class="card-desc">Personajes y muñecos personalizados para regalar o decorar.</p>
+            <span class="card-tag">Pedidos personalizados</span>
+          </div>
+        </article>
+
+        <!-- Muñecos navideños -->
+        <article class="card">
+          <div class="card-media">
+            <div class="placeholder-illustration">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 2 2 7l10 5 10-5-10-5z" />
+                <path d="M2 13l10 5 10-5" />
+                <path d="M2 19l10 5 10-5" />
+              </svg>
+              <span>Foto del detalle navideño</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Muñecos navideños</h3>
+            <p class="card-desc">Detalles festivos para la navidad y celebraciones de fin de año.</p>
+            <span class="card-tag">Temporada festiva</span>
+          </div>
+        </article>
+
+        <!-- Juegos para baños -->
+        <article class="card">
+          <div class="card-media">
+            <div class="placeholder-illustration">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <rect x="3" y="7" width="18" height="13" rx="2" />
+                <path d="M3 11h18" />
+                <path d="M8 15h8" />
+              </svg>
+              <span>Foto del juego para baño</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Juegos para baños</h3>
+            <p class="card-desc">Juguetes y detalles para baños, ideales para los más pequeños.</p>
+            <span class="card-tag">Para niños y niñas</span>
+          </div>
+        </article>
+
+        <!-- Detalles personalizados -->
+        <article class="card">
+          <div class="card-media">
+            <div class="placeholder-illustration">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z" />
+              </svg>
+              <span>Foto del detalle personalizado</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Detalles personalizados</h3>
+            <p class="card-desc">Regalos hechos a medida: nombres, fechas, temas especiales y más.</p>
+            <span class="card-tag">Cita, cumpleaños, regalo</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="section-head">
+        <div>
+          <h2>Cómo poner un pedido</h2>
+          <p class="section-sub">
+            Si tienes una idea, un nombre, una fecha especial o un detalle que quieres,
+            Stefy lo arma sobre la marcha.
+          </p>
+        </div>
+      </div>
+
+      <div class="personalization">
+        <div class="personalization-text">
+          <p>
+            No necesitas tener todo perfectamente definido para empezar.
+            Puedes escribirnos por WhatsApp y contarle qué buscas.
+            Ella te ayuda a ajustarlo.
+          </p>
+          <p>
+            Muchos pedidos se hacen para eventos como citas, cumpleaños,
+            celebraciones familiares o detalles especiales.
+          </p>
+        </div>
+        <ul class="personalization-list">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z"/></svg>
+            Puedes pedir un detalle para una cita
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z"/></svg>
+            Puedes pedir un detalle para un cumpleaños
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z"/></svg>
+            Puedes pedir detalles navideños
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z"/></svg>
+            Puedes pedir juegos para baños
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z"/></svg>
+            Puedes pedir detalles personalizados
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contacto" class="block">
+      <div class="section-head" style="justify-content: center;">
+        <div>
+          <h2>Contacto</h2>
+          <p class="section-sub" style="margin: 6px auto 0; text-align: center;">
+            Para pedidos, preguntas o ideas, puedes escribirnos por WhatsApp.
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <p style="margin: 0 0 14px; color: var(--muted); font-size: 15px;">
+          ¿Tienes un detalle en mente? Cuéntanle a Stefy lo que quieres.
+        </p>
+        <div class="big-contact" id="whatsapp">
+          <a href="https://wa.me/573000000000?text=Hola%20Stefy%2C%20me%20interesa%20un%20detalle%20personalizado"
+             class="btn btn-primary"
+             target="_blank"
+             rel="noopener"
+             style="padding: 14px 22px; font-size: 17px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M17.4 10.3c0-2.1 1.7-3.8 3.8-3.8h1.8c2.1 0 3.8 1.7 3.8 3.8 0 .7-.2 1.3-.6 1.8l-2.6 3.2-1-.5c-.3-.1-.6-.2-.9-.2-1.2 0-2.2.8-2.6 1.9l-.7 2.8v.2c0 1.6-1.3 2.8-2.9 2.8h-1.7c-1.6 0-2.9-1.2-2.9-2.8v-.3l-.3-.3v-.3H7.2c.5.1.9.3 1.3.5l.7-2.8c.4-.9.7-1.6.7-2.4 0-2.2-1.8-3.8-4.1-3.8h-1.9c-2.3 0-4.1 1.6-4.1 3.9 0 1 .2 1.9.6 2.6l.5.6.5-.6c.4-.7.6-1.6.6-2.6h-2.3c0 .4 0 .8.1 1.2l2.1 2.6-.8-.3c-.3-.1-.6-.2-.9-.2-1.2 0-2.2.8-2.6 1.9l-.6 2.6v.1c0 1.7-1.4 3-3.1 3h-1.7c-1.7 0-3.1-1.3-3.1-3v-.2l-.3-.3v-.2H5.2c.5 0 .9.1 1.3.3l.6-2.6c.5-1 .8-1.8.8-2.7 0-2.4-2-4.3-4.5-4.3h-2c-2.5 0-4.5 1.9-4.5 4.4 0 .9.3 1.7.7 2.3l.7.9-.4.4-1-.9c-.4-.4-.7-.8-.7-1.3 0-.6.2-1.2.6-1.6l2.4-3 1 .6c.3.2.6.3.9.3 1.3 0 2.3-1 2.7-2l.4-2.6v-.1c0-1.7 1.4-3 3.1-3h1.7c1.7 0 3.1 1.3 3.1 3v.3l.3.3v.3h2.1c-.5-.1-.9-.2-1.3-.4l-.6 2.6c-.5 1-.8 1.9-.8 2.9 0 2.5 2 4.5 4.5 4.5h2.1c2.5 0 4.5-2 4.5-4.5 0-.7-.1-1.4-.3-2l-2.3-2.9.8.4c.3.1.6.2.9.2 1.2 0 2.2-.8 2.6-1.9l.6-2.6v-.2c0-1.6 1.3-2.9 2.9-2.9h1.7c1.6 0 2.9 1.3 2.9 2.9v.3l.3.3v.3h2z"/>
+            </svg>
+            Escribir por WhatsApp
+          </a>
+
+          <p class="contact-note">
+            También puedes visitar la página y escribirnos desde aquí.
+            Si prefieres, cuéntale a Stefy qué detalle quieres y ella te responde.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="container">
+      <p>
+        Creaciones y Detalles Stefy —
+        muñecos, detalles navideños, juegos para baños y detalles personalizados.
+      </p>
+      <p style="margin-top: 6px; font-size: 13px; opacity: 0.8;">
+        Página experimental • Diseño en curso • Los textos y fotos serán actualizados con los reales.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
