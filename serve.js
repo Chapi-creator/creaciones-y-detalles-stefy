@@ -25,8 +25,8 @@ serve({
         return new Response("Not found", { status: 404 });
       }
 
-      const text = readFileSync(filePath, "utf8");
-      if (!text) return new Response("Not found", { status: 404 });
+      const data = readFileSync(filePath);
+      if (!data || data.length === 0) return new Response("Not found", { status: 404 });
 
       const lower = filePath.toLowerCase();
       const type =
@@ -46,7 +46,7 @@ serve({
           ? "image/webp"
           : "application/octet-stream";
 
-      return new Response(text, {
+      return new Response(data, {
         headers: { "Content-Type": type },
       });
     } catch {

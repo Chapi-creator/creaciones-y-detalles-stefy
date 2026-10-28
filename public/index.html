@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creaciones y Detalles Stefy | Muñecos y detalles personalizados</title>
-  <meta name="description" content="Muñecos, muñecos navideños, juegos para baños y detalles personalizados hechos a mano por Stefy. Cada pedido se hace a tu medida." />
+  <title>Creaciones y Detalles Stefy | Muñecos, ramos y detalles personalizados</title>
+  <meta name="description" content="Muñecos y peluches, ramos y arreglos, cajas y canastas de regalo y detalles personalizados hechos a mano por Stefy. Cada pedido se hace a tu medida." />
   <meta name="theme-color" content="#b4551f" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="canonical" href="https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/" />
@@ -12,11 +12,16 @@
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="es_ES" />
   <meta property="og:title" content="Creaciones y Detalles Stefy" />
-  <meta property="og:description" content="Muñecos, detalles navideños, juegos para baños y detalles personalizados hechos a mano. Pide a tu medida." />
+  <meta property="og:description" content="Muñecos, ramos y arreglos, cajas y canastas de regalo y detalles hechos a mano. Pide a tu medida." />
   <meta property="og:url" content="https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/" />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Creaciones y Detalles Stefy" />
-  <meta name="twitter:description" content="Muñecos, detalles navideños, juegos para baños y detalles personalizados hechos a mano." />
+  <meta name="twitter:description" content="Muñecos, ramos y arreglos, cajas y canastas de regalo y detalles hechos a mano." />
+  <meta name="twitter:image" content="https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/img/og-image.jpg" />
+  <meta property="og:image" content="https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/img/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Regalos hechos a mano por Creaciones y Detalles Stefy" />
 
   <script type="application/ld+json">
   {
@@ -24,7 +29,8 @@
     "@type": "OnlineStore",
     "name": "Creaciones y Detalles Stefy",
     "url": "https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/",
-    "description": "Muñecos, muñecos navideños, juegos para baños y detalles personalizados hechos a mano.",
+    "image": "https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/img/og-image.jpg",
+    "description": "Muñecos y peluches, ramos y arreglos, cajas y canastas de regalo y detalles personalizados hechos a mano.",
     "inLanguage": "es"
   }
   </script>
@@ -110,15 +116,10 @@
     }
 
     .brand-mark {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      background: var(--accent-soft);
-      display: grid;
-      place-items: center;
-      color: var(--accent-ink);
-      font-weight: 800;
-      font-size: 18px;
+      object-fit: contain;
       flex-shrink: 0;
     }
 
@@ -357,6 +358,187 @@
       margin-top: 10px;
     }
 
+    /* Galerías de catálogo */
+    .card-media[data-gallery] {
+      cursor: pointer;
+    }
+
+    .card-gallery-btn {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .modal[hidden],
+    .lightbox[hidden] {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(35, 22, 12, 0.72);
+    }
+
+    .modal-panel {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--radius);
+      width: min(980px, 100%);
+      max-height: min(88vh, 900px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .modal-head h3 {
+      margin: 0;
+      font-size: 19px;
+    }
+
+    .modal-sub {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .modal-close,
+    .lb-close {
+      background: none;
+      border: 0;
+      font-size: 30px;
+      line-height: 1;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0 6px;
+    }
+
+    .modal-close:hover,
+    .lb-close:hover {
+      color: var(--text);
+    }
+
+    .modal-grid {
+      overflow-y: auto;
+      padding: 16px 20px 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .modal-grid button {
+      padding: 0;
+      border: 0;
+      background: none;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 3 / 4;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    }
+
+    .modal-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .modal-grid button:hover img {
+      transform: scale(1.04);
+    }
+
+    .lightbox {
+      position: absolute;
+      inset: 0;
+      background: rgba(24, 16, 10, 0.95);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+    }
+
+    .lb-figure {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .lb-figure img {
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 10px;
+      object-fit: contain;
+    }
+
+    .lb-figure figcaption {
+      color: #f3ece4;
+      font-size: 13px;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .lb-btn {
+      background: rgba(255, 255, 255, 0.14);
+      border: 0;
+      color: #fff;
+      font-size: 28px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .lb-btn:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .lb-close {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      color: #fff;
+    }
+
+    @media (max-width: 560px) {
+      .modal-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .lb-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 24px;
+      }
+    }
+
     /* Personalization / steps */
     .personalization {
       display: grid;
@@ -505,7 +687,7 @@
   <header class="site">
     <div class="container site-header-inner">
       <div class="brand">
-        <div class="brand-mark" aria-hidden="true">CS</div>
+        <img class="brand-mark" src="img/logo.png" alt="" width="42" height="42" />
         <span>Creaciones y Detalles Stefy</span>
       </div>
       <nav class="site-nav" aria-label="Navegación principal">
@@ -527,8 +709,8 @@
         para momentos especiales
       </h1>
       <p>
-        Creaciones y Detalles Stefy hace muñecos, detalles navideños,
-        juegos para baños y detalles personalizados. Cada pedido se arma
+        Creaciones y Detalles Stefy hace muñecos y peluches, ramos y arreglos,
+        cajas y canastas de regalo y detalles para toda ocasión. Cada pedido se arma
         contigo para que quede como tú lo imaginaste.
       </p>
       <div class="hero-cta">
@@ -542,83 +724,62 @@
         <div>
           <h2>Catálogo de creaciones</h2>
           <p class="section-sub">
-            Algunos ejemplos de lo que Stefy suele hacer. Los trabajos se piden
-            a medida, así que estos son solo referentes.
+            Cada tarjeta abre su propia galería con más fotos de ese catálogo.
+            Todos los trabajos se piden a medida, así que son solo referentes.
           </p>
         </div>
       </div>
 
       <div class="gallery">
-        <!-- Muñecos -->
+        <!-- Muñecos y peluches -->
         <article class="card">
-          <div class="card-media">
-            <div class="placeholder-illustration">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <circle cx="12" cy="7" r="3.4" />
-                <path d="M5.6 21c0-4 3.4-6 7-6s7 2 7 6" />
-              </svg>
-              <span>Foto del muñeco</span>
-            </div>
+          <div class="card-media" data-gallery="munecos">
+            <img src="img/munecos.jpg" alt="Ramo con muñeco de peluche, girasol y rosas elaborado por Creaciones y Detalles Stefy" width="798" height="1064" loading="lazy" decoding="async" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">Muñecos</h3>
-            <p class="card-desc">Personajes y muñecos personalizados para regalar o decorar.</p>
-            <span class="card-tag">Pedidos personalizados</span>
+            <h3 class="card-title">Muñecos y peluches</h3>
+            <p class="card-desc">Osos, personajes y muñecos que se combinan con dulces, flores y globos.</p>
+            <span class="card-tag">Para regalar</span>
+            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="munecos">Ver las 13 fotos</button>
           </div>
         </article>
 
-        <!-- Muñecos navideños -->
+        <!-- Ramos y arreglos -->
         <article class="card">
-          <div class="card-media">
-            <div class="placeholder-illustration">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <path d="M12 2 2 7l10 5 10-5-10-5z" />
-                <path d="M2 13l10 5 10-5" />
-                <path d="M2 19l10 5 10-5" />
-              </svg>
-              <span>Foto del detalle navideño</span>
-            </div>
+          <div class="card-media" data-gallery="ramos">
+            <img src="img/ramos.jpg" alt="Ramo de girasoles y rosas amarillas con la leyenda “Feliz cumpleaños abuelita”" width="798" height="1064" loading="lazy" decoding="async" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">Muñecos navideños</h3>
-            <p class="card-desc">Detalles festivos para la navidad y celebraciones de fin de año.</p>
-            <span class="card-tag">Temporada festiva</span>
+            <h3 class="card-title">Ramos y arreglos</h3>
+            <p class="card-desc">Ramos de girasoles, rosas y flores combinadas con chocolates y dulces.</p>
+            <span class="card-tag">Hechos a mano</span>
+            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="ramos">Ver las 13 fotos</button>
           </div>
         </article>
 
-        <!-- Juegos para baños -->
+        <!-- Cajas y canastas regalo -->
         <article class="card">
-          <div class="card-media">
-            <div class="placeholder-illustration">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <rect x="3" y="7" width="18" height="13" rx="2" />
-                <path d="M3 11h18" />
-                <path d="M8 15h8" />
-              </svg>
-              <span>Foto del juego para baño</span>
-            </div>
+          <div class="card-media" data-gallery="cajas">
+            <img src="img/cajas.jpg" alt="Caja regalo “Feliz Cumple” con cosméticos, chocolates y mariposas" width="798" height="1064" loading="lazy" decoding="async" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">Juegos para baños</h3>
-            <p class="card-desc">Juguetes y detalles para baños, ideales para los más pequeños.</p>
-            <span class="card-tag">Para niños y niñas</span>
+            <h3 class="card-title">Cajas y canastas regalo</h3>
+            <p class="card-desc">Cajas y canastas con dulces, snacks, bebidas, cosméticos y un mensaje tuyo.</p>
+            <span class="card-tag">Cumpleaños, amor, amistad</span>
+            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="cajas">Ver las 18 fotos</button>
           </div>
         </article>
 
-        <!-- Detalles personalizados -->
+        <!-- Celebraciones -->
         <article class="card">
-          <div class="card-media">
-            <div class="placeholder-illustration">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-                <path d="M12 2l2.4 7.2L21 9.6l-5.6 4.4 1.6 7-.8-3.6-6 1.2L8 17.2 3.6 13.6 9.2 12l1.6-7-5.6-4.4L12 2z" />
-              </svg>
-              <span>Foto del detalle personalizado</span>
-            </div>
+          <div class="card-media" data-gallery="celebraciones">
+            <img src="img/celebraciones.jpg" alt="Globos “Feliz Día de la Madre” con cosméticos y rosas en caja rosa" width="798" height="1064" loading="lazy" decoding="async" />
           </div>
           <div class="card-body">
-            <h3 class="card-title">Detalles personalizados</h3>
-            <p class="card-desc">Regalos hechos a medida: nombres, fechas, temas especiales y más.</p>
-            <span class="card-tag">Cita, cumpleaños, regalo</span>
+            <h3 class="card-title">Celebraciones</h3>
+            <p class="card-desc">Detalles para el Día de la Madre, del Hombre, aniversarios y cumpleaños.</p>
+            <span class="card-tag">Mamá, papá y más</span>
+            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="celebraciones">Ver las 16 fotos</button>
           </div>
         </article>
       </div>
@@ -716,10 +877,215 @@
     <div class="container">
       <p>
         Creaciones y Detalles Stefy —
-        muñecos, detalles navideños, juegos para baños y detalles personalizados.
+        muñecos y peluches, ramos y arreglos, cajas y canastas de regalo
+        y detalles personalizados.
       </p>
       <p class="footer-note">© 2026 Creaciones y Detalles Stefy</p>
     </div>
   </footer>
+
+  <div class="modal" id="galeria-modal" hidden>
+    <div class="modal-backdrop" data-cerrar></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="galeria-titulo">
+      <div class="modal-head">
+        <div>
+          <h3 id="galeria-titulo"></h3>
+          <p class="modal-sub" id="galeria-sub"></p>
+        </div>
+        <button type="button" class="modal-close" data-cerrar aria-label="Cerrar galería" title="Cerrar">&times;</button>
+      </div>
+      <div class="modal-grid" id="galeria-grid"></div>
+
+      <div class="lightbox" id="lightbox" hidden>
+        <button type="button" class="lb-btn lb-prev" aria-label="Foto anterior">&#8249;</button>
+        <figure class="lb-figure">
+          <img id="lb-img" alt="" />
+          <figcaption id="lb-cap"></figcaption>
+        </figure>
+        <button type="button" class="lb-btn lb-next" aria-label="Foto siguiente">&#8250;</button>
+        <button type="button" class="lb-close" data-lb-cerrar aria-label="Cerrar foto" title="Cerrar">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var BASE = "img/galeria/";
+      var galerias = {
+        munecos: {
+          titulo: "Muñecos y peluches",
+          fotos: [
+            ["munecos-01.jpg", "Perro de peluche en caja con chocolates"],
+            ["munecos-02.jpg", "Puerquito de peluche con globo “¿Quieres ser mi novia?”"],
+            ["munecos-03.jpg", "Oso de peluche con chocolates y globos de amor"],
+            ["munecos-04.jpg", "Oso rosa de peluche con globos y dulces"],
+            ["munecos-05.jpg", "Oso de peluche con chocolates y caja roja “Para ti”"],
+            ["munecos-06.jpg", "Snoopy de peluche en caja de cumpleaños"],
+            ["munecos-07.jpg", "Ramo con oso de peluche, girasol y rosas"],
+            ["munecos-08.jpg", "Peluche de personaje con globo de graduación"],
+            ["munecos-09.jpg", "Peluche rosa con globo “Feliz aniversario”"],
+            ["munecos-10.jpg", "Snoopy de peluche con caja de cumpleaños y dulces"],
+            ["munecos-11.jpg", "Peluche Kuromi de graduación con globo “Para la graduada más hermosa”"],
+            ["munecos-12.jpg", "Oso de peluche rosa con globo “Feliz aniversario” y chocolates"],
+            ["munecos-13.jpg", "Mono de peluche con globo “Feliz cumpleaños” y dulces rosados"]
+          ]
+        },
+        ramos: {
+          titulo: "Ramos y arreglos",
+          fotos: [
+            ["ramos-01.jpg", "Ramo de rosas naranjas envueltas en papel crema"],
+            ["ramos-02.jpg", "Ramo de girasoles y rosas amarillas “Feliz cumpleaños abuelita”"],
+            ["ramos-03.jpg", "Ramo de rosas amarillas con globos de graduación"],
+            ["ramos-04.jpg", "Arreglo de rosas rosadas y lirio en caja negra"],
+            ["ramos-05.jpg", "Arreglo de girasoles y rosas en maceta dorada"],
+            ["ramos-06.jpg", "Arreglo con globos, flores y frutas"],
+            ["ramos-07.jpg", "Ramo de rosa naranja envuelto en papel kraft"],
+            ["ramos-08.jpg", "Ramo de girasoles con chocolates en la mano"],
+            ["ramos-09.jpg", "Ramo de girasoles envuelto en papel morado"],
+            ["ramos-10.jpg", "Ramo de girasoles con dulces y lazo amarillo"],
+            ["ramos-11.jpg", "Ramo de rosas naranjas y blancas con lazo naranja brillante"],
+            ["ramos-12.jpg", "Ramo de dulces con girasol de tela en papel morado"],
+            ["ramos-13.jpg", "Ramo dulce artesanal con girasol dorado en papel rosa"]
+          ]
+        },
+        cajas: {
+          titulo: "Cajas y canastas regalo",
+          fotos: [
+            ["cajas-01.jpg", "Caja dorada “Feliz cumple” con cosméticos y chocolates"],
+            ["cajas-02.jpg", "Arreglo “Te quiero” con conejo de peluche y Ferrero Rocher"],
+            ["cajas-03.jpg", "Caja rosa “Tengo una pregunta muy especial para ustedes”"],
+            ["cajas-04.jpg", "Bandeja de comida con globos “Feliz cumpleaños”"],
+            ["cajas-05.jpg", "Canasta de cumpleaños con globos y dulces"],
+            ["cajas-06.jpg", "Arreglo de snacks, Coca-Cola y taza"],
+            ["cajas-07.jpg", "Caja roja “Para ti” con vino y chocolates"],
+            ["cajas-08.jpg", "Canasta de cumpleaños con globos y snacks"],
+            ["cajas-09.jpg", "Caja negra “Te amo” con Ferrero Rocher"],
+            ["cajas-10.jpg", "Bandeja de cumpleaños con globos y dulces"],
+            ["cajas-11.jpg", "Caja dorada con cervezas, peluche y globos “Te quiero”"],
+            ["cajas-12.jpg", "Bandeja de cumpleaños con pastel y globo “Feliz cumpleaños”"],
+            ["cajas-13.jpg", "Cestas navideñas con vino, manzanas y uvas"],
+            ["cajas-14.jpg", "Caja de madera con frutas y globo “Feliz cumpleaños”"],
+            ["cajas-15.jpg", "Caja rosa con rosas, frutas y globo “Feliz cumpleaños”"],
+            ["cajas-16.jpg", "Cestas navideñas con globos de nieve y reno"],
+            ["cajas-17.jpg", "Caja blanca de aniversario con mensaje “Te amo” y chocolates"],
+            ["cajas-18.jpg", "Caja de regalo con Corona, snacks y globo de luces"]
+          ]
+        },
+        celebraciones: {
+          titulo: "Celebraciones",
+          fotos: [
+            ["celebraciones-01.jpg", "Tarro con cerveza y snacks “Feliz día del hombre”"],
+            ["celebraciones-02.jpg", "Jaula de globos “Feliz día mujer” con girasoles y rosas"],
+            ["celebraciones-03.jpg", "Taza “Feliz día de amor” con peluche y dulces"],
+            ["celebraciones-04.jpg", "Canasta “Mamá eres mi todo” con globos"],
+            ["celebraciones-05.jpg", "Globo “Te amo mamá” con cervezas y dulces"],
+            ["celebraciones-06.jpg", "Globo blanco “Feliz día mamí” con regalos"],
+            ["celebraciones-07.jpg", "Globo “Mamá” con pájaros y frutas"],
+            ["celebraciones-08.jpg", "Caja rosa “Feliz día de la Madre” con cosméticos y globos"],
+            ["celebraciones-09.jpg", "Globo “Mamá es la reina” con dulces"],
+            ["celebraciones-10.jpg", "Globo “Te quiero mami” con canasta de cumpleaños"],
+            ["celebraciones-11.jpg", "Arreglo infantil con globo “Feliz Día” y snacks"],
+            ["celebraciones-12.jpg", "Regalo para mamá con globo “Te amo mamita”, frutas y flores"],
+            ["celebraciones-13.jpg", "Globo “Mamá es la reina” con taza y dulces"],
+            ["celebraciones-14.jpg", "Bandeja con pastel y globo dorado “Feliz Día”"],
+            ["celebraciones-15.jpg", "Bandeja de regalo con globo “Feliz Día” y lazo azul"],
+            ["celebraciones-16.jpg", "Canasta “Te quiero mami” con globos dorados y rosados"]
+          ]
+        }
+      };
+
+      var modal = document.getElementById("galeria-modal");
+      var grid = document.getElementById("galeria-grid");
+      var titulo = document.getElementById("galeria-titulo");
+      var sub = document.getElementById("galeria-sub");
+      var lightbox = document.getElementById("lightbox");
+      var lbImg = document.getElementById("lb-img");
+      var lbCap = document.getElementById("lb-cap");
+      var fotos = [];
+      var posicion = 0;
+      var abridor = null;
+
+      function abrir(clave) {
+        var g = galerias[clave];
+        if (!g) return;
+        fotos = g.fotos;
+        titulo.textContent = g.titulo;
+        sub.textContent = fotos.length + " fotos · toca una para verla grande";
+        grid.innerHTML = "";
+        fotos.forEach(function (foto, i) {
+          var caja = document.createElement("button");
+          caja.type = "button";
+          caja.setAttribute("aria-label", "Ver foto " + (i + 1) + " de " + fotos.length + ": " + foto[1]);
+          var img = document.createElement("img");
+          img.src = BASE + foto[0];
+          img.alt = foto[1];
+          img.loading = "lazy";
+          img.decoding = "async";
+          img.width = 720;
+          img.height = 960;
+          caja.appendChild(img);
+          caja.addEventListener("click", function () { mostrar(i); });
+          grid.appendChild(caja);
+        });
+        abridor = document.activeElement;
+        lightbox.hidden = true;
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+        modal.querySelector(".modal-close").focus();
+      }
+
+      function cerrarTodo() {
+        modal.hidden = true;
+        lightbox.hidden = true;
+        document.body.classList.remove("modal-open");
+        if (abridor && abridor.focus) abridor.focus();
+      }
+
+      function mostrar(i) {
+        posicion = (i + fotos.length) % fotos.length;
+        var foto = fotos[posicion];
+        lbImg.src = BASE + foto[0];
+        lbImg.alt = foto[1];
+        lbCap.textContent = foto[1] + " · " + (posicion + 1) + " de " + fotos.length;
+        lightbox.hidden = false;
+      }
+
+      function mover(paso) {
+        if (lightbox.hidden) return;
+        mostrar(posicion + paso);
+      }
+
+      document.querySelectorAll("[data-gallery]").forEach(function (elem) {
+        var g = galerias[elem.dataset.gallery];
+        if (g && elem.classList.contains("card-gallery-btn")) {
+          elem.textContent = "Ver las " + g.fotos.length + " fotos";
+        }
+        elem.addEventListener("click", function () { abrir(elem.dataset.gallery); });
+      });
+
+      modal.querySelectorAll("[data-cerrar]").forEach(function (elem) {
+        elem.addEventListener("click", cerrarTodo);
+      });
+
+      modal.querySelectorAll("[data-lb-cerrar]").forEach(function (elem) {
+        elem.addEventListener("click", function () { lightbox.hidden = true; });
+      });
+
+      modal.querySelector(".lb-prev").addEventListener("click", function () { mover(-1); });
+      modal.querySelector(".lb-next").addEventListener("click", function () { mover(1); });
+
+      document.addEventListener("keydown", function (evento) {
+        if (modal.hidden) return;
+        if (evento.key === "Escape") {
+          if (lightbox.hidden) cerrarTodo();
+          else lightbox.hidden = true;
+        } else if (evento.key === "ArrowLeft") {
+          mover(-1);
+        } else if (evento.key === "ArrowRight") {
+          mover(1);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
