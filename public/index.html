@@ -2,6 +2,17 @@
 <html lang="es-CO">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    /* Entra siempre por https. Se salta el servidor local (http://127.0.0.1) para no romper la vista previa. */
+    if (
+      location.protocol === "http:" &&
+      !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname)
+    ) {
+      location.replace(
+        "https://" + location.host + location.pathname + location.search + location.hash
+      );
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creaciones y Detalles Stefy | Muñecos, ramos y detalles personalizados</title>
   <meta name="description" content="Muñecos, ramos, cajas y canastas, velas y detalles personalizados hechos a mano por Stefy en Aipe, Huila. Pedidos a tu medida en todo el municipio." />
