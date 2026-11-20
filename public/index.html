@@ -2144,8 +2144,10 @@
           lineas.push("Foto: " + baseFotos + item.foto);
         });
         lineas.push("");
+        // Si ya escribió el municipio, no se repite ", Aipe"
+        var entrega = /\baipe\b/i.test(direccion) ? direccion : direccion + ", Aipe";
         lineas.push("Nombre: " + nombre);
-        lineas.push("Entrega en: " + direccion + ", Aipe");
+        lineas.push("Entrega en: " + entrega);
         if (fecha) lineas.push("Para el día: " + fecha);
         if (nota) lineas.push("Detalle: " + nota);
 
