@@ -13,10 +13,19 @@
       );
     }
   </script>
+  <script>
+    /* Si ya se vio la portada de bienvenida en esta sesión, no se repite. */
+    try {
+      if (sessionStorage.getItem("stefy-intro") === "1") {
+        document.documentElement.setAttribute("data-intro", "off");
+      }
+    } catch (e) {}
+  </script>
+  <noscript><style>#intro { display: none !important; }</style></noscript>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creaciones y Detalles Stefy | Muñecos, ramos y detalles personalizados</title>
   <meta name="description" content="Muñecos, ramos, cajas y canastas, velas y detalles personalizados hechos a mano por Stefy en Aipe, Huila. Pedidos a tu medida en todo el municipio." />
-  <meta name="theme-color" content="#b4551f" />
+  <meta name="theme-color" content="#FFF8F3" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="manifest" href="manifest.json" />
   <link rel="canonical" href="https://creaciones-y-detalles-stefy.creacionesstefy.workers.dev/" />
@@ -59,17 +68,29 @@
   }
   </script>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <style>
     :root {
-      --bg: #fbf8f4;
-      --surface: #ffffff;
-      --text: #3a3a3a;
-      --muted: #6b6b6b;
-      --accent: #b4551f;
-      --accent-ink: #9a4a20;
-      --accent-soft: #f6e4d8;
-      --radius: 16px;
-      --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.06);
+      --wine: #5b2230;
+      --wine-2: #7a3242;
+      --rose: #b4405c;
+      --rose-soft: #f2a7b8;
+      --pink-2: #f7c3cf;
+      --pink-3: #fde6ec;
+      --gold: #c89a5b;
+      --gold-soft: #f0d6a8;
+      --terracotta: #9c5a2e;
+      --cream: #fff8f3;
+      --ink: #4a232b;
+      --muted: #8a5f68;
+      --wa: #1faf5a;
+      --script: "Great Vibes", "Segoe Script", cursive;
+      --sans: "Quicksand", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --shadow: 0 18px 34px rgba(91, 34, 48, 0.2);
+      color-scheme: light;
     }
 
     * {
@@ -77,901 +98,1490 @@
     }
 
     html {
-      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      font-family: var(--sans);
+      color: var(--ink);
+      line-height: 1.55;
+      background: #fbebec;
+      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: var(--accent-ink);
-      text-decoration: none;
+    body.intro-open,
+    body.sheet-open,
+    body.modal-open {
+      overflow: hidden;
     }
 
-    a:hover {
-      text-decoration: underline;
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      color: var(--rose);
     }
 
     a:focus-visible,
-    .btn:focus-visible {
-      outline: 3px solid var(--accent-ink);
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--wine);
       outline-offset: 2px;
-      border-radius: 4px;
+      border-radius: 6px;
     }
 
-    .container {
-      max-width: 1040px;
+    .wrap {
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 16px;
     }
 
-    /* Header */
+    /* ---------- Cabecera ---------- */
     header.site {
-      background: var(--surface);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
       position: sticky;
       top: 0;
-      z-index: 20;
-      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
+      z-index: 40;
+      background: #fff8f3;
+      border-bottom: 1px solid rgba(91, 34, 48, 0.06);
     }
 
-    .site-header-inner {
+    .hdr {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      gap: 16px;
-      flex-wrap: wrap;
+      gap: 10px;
+      padding: 9px 16px;
+      max-width: 1120px;
+      margin: 0 auto;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-      color: var(--text);
-      font-weight: 700;
-      font-size: 18px;
+      gap: 9px;
+      text-decoration: none;
+      color: var(--wine);
+      min-width: 0;
     }
 
-    .brand-mark {
-      width: 42px;
-      height: 42px;
+    .brand img {
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      object-fit: contain;
-      flex-shrink: 0;
+      flex: none;
+      box-shadow: 0 2px 8px rgba(91, 34, 48, 0.18);
     }
 
-    .site-nav {
-      display: flex;
-      align-items: center;
+    .brand-name {
+      font-family: var(--script);
+      font-size: 1.35rem;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hdr-nav {
+      display: none;
       gap: 20px;
       margin-left: auto;
-    }
-
-    .site-nav a {
-      color: var(--text);
+      font-size: 0.86rem;
       font-weight: 600;
-      font-size: 15px;
     }
 
-    .site-nav a:hover {
-      color: var(--accent-ink);
+    .hdr-nav a {
+      color: var(--wine);
       text-decoration: none;
     }
 
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .hdr-nav a:hover {
+      color: var(--rose);
     }
 
-    .btn {
+    .cart-btn {
+      margin-left: auto;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
+      gap: 0.5em;
+      background: var(--wine);
+      color: #fff;
+      border: 0;
       border-radius: 999px;
-      font-weight: 600;
-      font-size: 15px;
-      border: none;
+      padding: 0.62em 1.05em;
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.92rem;
       cursor: pointer;
-      transition: transform 0.05s ease, box-shadow 0.2s ease, background 0.2s ease;
-      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(91, 34, 48, 0.25);
     }
 
-    .btn:hover {
-      text-decoration: none;
+    .cart-btn .badge {
+      display: inline-grid;
+      place-items: center;
+      min-width: 1.55em;
+      height: 1.55em;
+      padding: 0 0.35em;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--wine);
+      font-size: 0.82em;
+      font-weight: 700;
+    }
+
+    .strip {
+      height: 6px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--rose) 0 13px,
+        #fff8f3 13px 19px,
+        var(--gold) 19px 32px,
+        #fff8f3 32px 38px
+      );
+      opacity: 0.85;
+    }
+
+    @media (min-width: 780px) {
+      .hdr-nav {
+        display: flex;
+      }
+
+      .cart-btn {
+        margin-left: 22px;
+      }
+
+      .brand-name {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* ---------- Portada de bienvenida ---------- */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background-color: #f3afc0;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.62) 0 20px,
+          rgba(255, 255, 255, 0) 20px 40px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.62) 0 20px,
+          rgba(255, 255, 255, 0) 20px 40px
+        );
+      transition: opacity 0.36s ease, transform 0.36s ease;
+    }
+
+    #intro[hidden],
+    html[data-intro="off"] #intro {
+      display: none;
+    }
+
+    #intro.is-closing {
+      opacity: 0;
+      transform: scale(0.98);
+      pointer-events: none;
+    }
+
+    .intro-entrar {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      background: var(--cream);
+      color: var(--wine);
+      border: 0;
+      border-radius: 999px;
+      padding: 0.6em 1.1em;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(91, 34, 48, 0.18);
+    }
+
+    .intro-card {
+      width: 100%;
+      max-width: 430px;
+      max-height: calc(100vh - 36px);
+      overflow: auto;
+      padding: 26px 22px 22px;
+      border-radius: 26px;
+      background: var(--cream);
+      border: 3px solid #fff;
+      box-shadow: 0 26px 50px rgba(91, 34, 48, 0.28);
+      text-align: center;
+      -webkit-overflow-scrolling: touch;
+      animation: introIn 0.5s ease both;
+    }
+
+    @keyframes introIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .intro-logo {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 10px;
+      box-shadow: 0 8px 18px rgba(91, 34, 48, 0.16);
+    }
+
+    .intro-kicker {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+
+    .intro-title {
+      font-family: var(--script);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 9vw, 2.5rem);
+      line-height: 1.1;
+      color: var(--rose);
+      margin: 6px 0 8px;
+    }
+
+    .intro-text {
+      margin: 0 auto 16px;
+      max-width: 32ch;
+      font-size: 0.95rem;
+      color: var(--ink);
     }
 
     .btn-primary {
-      background: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      width: 100%;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.95em 1.2em;
+      background: var(--rose);
       color: #fff;
-      box-shadow: 0 6px 18px rgba(180, 85, 31, 0.32);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(180, 64, 92, 0.3);
     }
 
     .btn-primary:hover {
-      background: #9c481a;
-      transform: translateY(-1px);
-      box-shadow: 0 8px 22px rgba(180, 85, 31, 0.4);
+      background: #a33850;
     }
 
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid rgba(0, 0, 0, 0.18);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(0, 0, 0, 0.04);
-    }
-
-    .btn-lg {
-      padding: 14px 22px;
-      font-size: 17px;
-    }
-
-    /* Hero */
-    .hero {
-      padding: 64px 0 40px;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: var(--accent-soft);
-      color: var(--accent-ink);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 999px;
+    .intro-foot {
+      margin: 12px 0 0;
+      font-size: 0.76rem;
+      color: var(--muted);
       letter-spacing: 0.02em;
-      margin-bottom: 18px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro-card {
+        animation: none;
+      }
+
+      #intro {
+        transition: none;
+      }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      text-align: center;
+      padding: 34px 16px 6px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terracotta);
     }
 
     .hero h1 {
-      margin: 0;
-      font-size: clamp(32px, 6vw, 52px);
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+      margin: 0.06em 0 0.14em;
+      font-family: var(--script);
+      font-weight: 400;
+      font-size: clamp(2.6rem, 10.5vw, 4.2rem);
+      line-height: 1.08;
+      color: var(--rose);
     }
 
-    .hero h1 .accent {
-      color: var(--accent);
-    }
-
-    .hero p {
-      margin: 16px auto 0;
+    .lead {
       max-width: 560px;
-      color: var(--muted);
-      font-size: 18px;
+      margin: 0 auto 16px;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--ink);
     }
 
-    .hero-cta {
-      margin-top: 28px;
+    /* ---------- Tarjetas de producto ---------- */
+    .products {
       display: flex;
-      gap: 12px;
-      justify-content: center;
       flex-wrap: wrap;
-    }
-
-    /* Section */
-    section.block {
-      padding: 48px 0;
-      scroll-margin-top: 84px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-
-    .section-head.centered {
       justify-content: center;
-      text-align: center;
+      gap: 34px 26px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 60px;
+      scroll-margin-top: 76px;
     }
 
-    .section-head.centered .section-sub {
-      margin: 6px auto 0;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: 26px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      max-width: 440px;
-      margin-top: 6px;
-    }
-
-    /* Gallery grid */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.15s ease, box-shadow 0.2s ease;
-      border: 1px solid rgba(0, 0, 0, 0.04);
+    .product {
+      width: calc(33.3333% - 17.3333px);
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: none;
+      border: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
     }
 
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05), 0 16px 36px rgba(0, 0, 0, 0.08);
+    .product:nth-child(3n + 2) {
+      margin-top: 44px;
     }
 
-    .card-media {
-      aspect-ratio: 3 / 4;
-      background: #f0ebe3;
-      display: grid;
-      place-items: center;
-      color: var(--muted);
-      font-size: 13px;
+    .frame {
       position: relative;
+      z-index: 1;
+      width: 80%;
+      aspect-ratio: 4 / 5;
+      margin-bottom: -14%;
+      border: 7px solid #fff;
+      border-radius: 26px;
       overflow: hidden;
+      box-shadow: 0 10px 20px rgba(91, 34, 48, 0.18);
+      background: var(--pink-3);
     }
 
-    .card-media img {
+    .frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .card-body {
-      padding: 14px 16px 16px;
-      flex: 1;
-    }
-
-    .card-title {
-      margin: 0 0 4px;
-      font-size: 17px;
-      font-weight: 700;
-    }
-
-    .card-desc {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .card-tag {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent-ink);
-      background: var(--accent-soft);
-      padding: 3px 9px;
-      border-radius: 999px;
-      margin-top: 10px;
-    }
-
-    /* Galerías de catálogo */
-    .card-media[data-gallery] {
-      cursor: pointer;
-    }
-
-    .card-gallery-btn {
+    .pedestal {
       width: 100%;
-      margin-top: 12px;
+      height: auto;
+      overflow: visible;
     }
 
-    body.modal-open {
-      overflow: hidden;
+    .p-type {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--terracotta);
     }
 
-    .modal[hidden],
-    .lightbox[hidden] {
+    .p-name {
+      display: block;
+      margin-top: 2px;
+      font-size: 1.14rem;
+      font-weight: 700;
+      color: var(--wine);
+      line-height: 1.25;
+    }
+
+    .p-meta {
+      display: block;
+      max-width: 290px;
+      margin: 5px auto 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .p-count {
+      display: block;
+      margin-top: 3px;
+      font-weight: 600;
+      color: var(--terracotta);
+    }
+
+    .p-price {
+      display: block;
+      margin-top: 7px;
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--rose);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .p-price small {
+      font-size: 0.68em;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .p-cta {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 0.52em 1.3em;
+      border-radius: 999px;
+      border: 2px solid var(--wine);
+      color: var(--wine);
+      font-weight: 700;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .product:hover .p-cta,
+    .product:focus-visible .p-cta {
+      background: var(--wine);
+      color: #fff;
+    }
+
+    @media (max-width: 860px) {
+      .product {
+        width: calc(50% - 13px);
+      }
+
+      .product:nth-child(3n + 2) {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .brand-name {
+        font-size: 1.12rem;
+      }
+
+      .cart-btn {
+        padding: 0.6em 0.85em;
+        font-size: 0.86rem;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .products {
+        max-width: 400px;
+        gap: 40px;
+      }
+
+      .product {
+        width: 100%;
+      }
+    }
+
+    /* ---------- Cómo poner un pedido ---------- */
+    .steps-band {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0 16px 70px;
+      scroll-margin-top: 76px;
+    }
+
+    .steps-band h2 {
+      font-family: var(--script);
+      font-weight: 400;
+      font-size: clamp(2rem, 7vw, 2.7rem);
+      color: var(--rose);
+      text-align: center;
+      margin: 0 0 4px;
+    }
+
+    .steps-band > p {
+      text-align: center;
+      margin: 0 auto 22px;
+      max-width: 46ch;
+      color: var(--muted);
+    }
+
+    .steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .steps li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(255, 248, 243, 0.88);
+      border: 2px dashed rgba(200, 154, 91, 0.55);
+      border-radius: 22px;
+      padding: 16px 18px;
+    }
+
+    .step-num {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--rose);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .steps h3 {
+      margin: 0 0 2px;
+      font-size: 1rem;
+      color: var(--wine);
+    }
+
+    .steps p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 780px) {
+      .steps {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ---------- Pie ---------- */
+    footer.site {
+      background: var(--wine);
+      color: #fff2ec;
+      text-align: center;
+      padding: 36px 18px 30px;
+      border-radius: 34px 34px 0 0;
+    }
+
+    .foot-logo {
+      display: inline-block;
+      background: var(--cream);
+      border-radius: 20px;
+      padding: 8px 16px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    .foot-logo img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .foot-script {
+      font-family: var(--script);
+      font-size: clamp(1.55rem, 5.2vw, 2.05rem);
+      line-height: 1.25;
+      color: var(--gold-soft);
+      max-width: 520px;
+      margin: 16px auto 8px;
+    }
+
+    .foot-text {
+      max-width: 460px;
+      margin: 0 auto 18px;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      color: #f8dde3;
+    }
+
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55em;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0.95em 1.2em;
+      border-radius: 999px;
+      background: var(--wa);
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 12px 26px rgba(31, 175, 90, 0.32);
+    }
+
+    .wa-btn:hover {
+      background: #1c9c50;
+    }
+
+    .foot-links {
+      margin: 16px 0 0;
+      font-size: 0.8rem;
+      color: #e7c3cb;
+    }
+
+    .foot-links a {
+      color: #ffd9c9;
+    }
+
+    /* ---------- Hojas (elegir diseño y mi pedido) ---------- */
+    .sheet {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .sheet[hidden] {
       display: none;
     }
 
+    .sheet-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(74, 35, 43, 0.52);
+    }
+
+    .sheet-panel {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 520px;
+      max-height: 92vh;
+      overflow: hidden;
+      background: var(--cream);
+      border-radius: 26px 26px 0 0;
+      box-shadow: 0 -18px 50px rgba(74, 35, 43, 0.34);
+      padding: 16px 16px 12px;
+    }
+
+    .sheet-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .sheet-foot {
+      flex: none;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(200, 154, 91, 0.6);
+    }
+
+    .sheet-foot[hidden] {
+      display: none;
+    }
+
+    @media (min-width: 760px) {
+      .sheet {
+        align-items: center;
+        padding: 20px;
+      }
+
+      .sheet-panel {
+        border-radius: 26px;
+        max-height: 86vh;
+      }
+    }
+
+    .sheet-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .sheet-head .p-type {
+      margin-top: 0;
+    }
+
+    .sheet-title {
+      margin: 2px 0 0;
+      font-family: var(--sans);
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--wine);
+      line-height: 1.2;
+    }
+
+    .sheet-close {
+      margin-left: auto;
+      flex: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(91, 34, 48, 0.25);
+      background: #fff;
+      color: var(--wine);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .detalle-media {
+      max-width: 320px;
+      margin: 0 auto;
+      border: 6px solid #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--pink-3);
+    }
+
+    .detalle-media img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+    }
+
+    .detalle-cap {
+      margin: 8px 2px 10px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .detalle-thumbs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 10px;
+      scrollbar-width: thin;
+    }
+
+    .detalle-thumbs button {
+      flex: none;
+      width: 66px;
+      height: 82px;
+      padding: 0;
+      border: 2.5px solid transparent;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--pink-3);
+      cursor: pointer;
+    }
+
+    .detalle-thumbs button[aria-pressed="true"] {
+      border-color: var(--rose);
+    }
+
+    .detalle-thumbs img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .link-btn {
+      display: inline-block;
+      background: none;
+      border: 0;
+      padding: 0;
+      color: var(--rose);
+      font: inherit;
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .detalle-foot {
+      flex: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(200, 154, 91, 0.6);
+    }
+
+    @media (max-height: 720px) {
+      .detalle-media {
+        max-width: 210px;
+      }
+    }
+
+    .qty {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      border: 1.5px solid rgba(91, 34, 48, 0.3);
+      border-radius: 999px;
+      padding: 3px;
+    }
+
+    .qty button {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--wine);
+      font: inherit;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .qty span {
+      min-width: 26px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--wine);
+    }
+
+    .detalle-foot .btn-primary {
+      width: auto;
+      flex: 1;
+      padding: 0.8em 1em;
+    }
+
+    .pedido-vacio {
+      padding: 26px 0 30px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .pedido-item {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(200, 154, 91, 0.55);
+    }
+
+    .pedido-item img {
+      width: 58px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #fff;
+      flex: none;
+    }
+
+    .pedido-item .pi-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pedido-item .pi-cat {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+    }
+
+    .pedido-item .pi-desc {
+      display: block;
+      font-size: 0.84rem;
+      line-height: 1.35;
+      color: var(--wine);
+    }
+
+    .pedido-item .pi-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pedido-item .qty {
+      transform: scale(0.86);
+      transform-origin: left center;
+    }
+
+    .pi-remove {
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    #pedido-form {
+      margin-top: 16px;
+    }
+
+    #pedido-form[hidden] {
+      display: none;
+    }
+
+    .form-title {
+      margin: 0 0 8px;
+      font-weight: 700;
+      color: var(--wine);
+    }
+
+    #pedido-form label {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--wine);
+    }
+
+    #pedido-form input,
+    #pedido-form textarea {
+      display: block;
+      width: 100%;
+      margin-top: 3px;
+      padding: 0.68em 0.85em;
+      border: 1.5px solid rgba(91, 34, 48, 0.25);
+      border-radius: 14px;
+      background: #fff;
+      font: inherit;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .wa-send {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      width: 100%;
+      margin-top: 6px;
+      padding: 0.95em 1.1em;
+      border: 0;
+      border-radius: 999px;
+      background: var(--wa);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(31, 175, 90, 0.3);
+    }
+
+    .nota {
+      margin: 10px 0 0;
+      font-size: 0.76rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    body.sheet-open .wa-float {
+      display: none;
+    }
+
+    /* ---------- Galería de fotos ---------- */
     .modal {
       position: fixed;
       inset: 0;
-      z-index: 50;
-      display: grid;
-      place-items: center;
-      padding: 16px;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .modal[hidden] {
+      display: none;
     }
 
     .modal-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(35, 22, 12, 0.72);
+      background: rgba(74, 35, 43, 0.62);
     }
 
     .modal-panel {
       position: relative;
-      background: var(--surface);
-      border-radius: var(--radius);
-      width: min(980px, 100%);
-      max-height: min(88vh, 900px);
+      width: 100%;
+      max-width: 960px;
+      height: 100%;
+      max-height: 100%;
       display: flex;
       flex-direction: column;
+      background: var(--cream);
+      border-radius: 0;
       overflow: hidden;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
     }
 
     .modal-head {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 20px 12px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      gap: 12px;
+      padding: 16px 16px 12px;
+      border-bottom: 2px dashed rgba(200, 154, 91, 0.6);
     }
 
     .modal-head h3 {
       margin: 0;
-      font-size: 19px;
+      padding-top: 6px;
+      font-family: var(--script);
+      font-weight: 400;
+      font-size: 1.9rem;
+      color: var(--rose);
+      line-height: 1.35;
     }
 
     .modal-sub {
       margin: 2px 0 0;
+      font-size: 0.8rem;
       color: var(--muted);
-      font-size: 13px;
     }
 
-    .modal-close,
-    .lb-close {
-      background: none;
-      border: 0;
-      font-size: 30px;
+    .modal-close {
+      margin-left: auto;
+      flex: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(91, 34, 48, 0.25);
+      background: #fff;
+      color: var(--wine);
+      font-size: 1.4rem;
       line-height: 1;
-      color: var(--muted);
       cursor: pointer;
-      padding: 0 6px;
-    }
-
-    .modal-close:hover,
-    .lb-close:hover {
-      color: var(--text);
     }
 
     .modal-grid {
-      overflow-y: auto;
-      padding: 16px 20px 22px;
+      flex: 1;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      grid-auto-rows: max-content;
-      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 12px;
     }
 
     .modal-grid button {
       padding: 0;
-      border: 0;
-      background: none;
-      border-radius: 12px;
+      border: 3px solid #fff;
+      border-radius: 14px;
       overflow: hidden;
+      background: var(--pink-3);
       cursor: pointer;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 14px rgba(91, 34, 48, 0.12);
     }
 
     .modal-grid img {
+      display: block;
       width: 100%;
       height: auto;
       aspect-ratio: 3 / 4;
       object-fit: cover;
-      display: block;
-      transition: transform 0.2s ease;
     }
 
-    .modal-grid button:hover img {
-      transform: scale(1.04);
+    @media (min-width: 700px) {
+      .modal-panel {
+        height: auto;
+        max-height: 90vh;
+        border-radius: 24px;
+      }
+
+      .modal-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .lightbox {
       position: absolute;
       inset: 0;
-      background: rgba(24, 16, 10, 0.95);
-      display: grid;
-      grid-template-columns: auto 1fr auto;
+      z-index: 2;
+      display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(35, 16, 21, 0.95);
       padding: 12px;
+    }
+
+    .lightbox[hidden] {
+      display: none;
     }
 
     .lb-figure {
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .lb-figure img {
-      max-width: 100%;
-      max-height: 70vh;
-      border-radius: 10px;
-      object-fit: contain;
-    }
-
-    .lb-figure figcaption {
-      color: #f3ece4;
-      font-size: 13px;
+      max-width: 90%;
+      max-height: 100%;
       text-align: center;
-      padding: 0 8px;
     }
 
-    .lb-btn {
-      background: rgba(255, 255, 255, 0.14);
-      border: 0;
-      color: #fff;
-      font-size: 28px;
-      width: 44px;
-      height: 44px;
+    #lb-img {
+      max-width: 100%;
+      max-height: 74vh;
+      border-radius: 14px;
+      border: 3px solid #fff;
+    }
+
+    #lb-cap {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #ffe6e9;
+      line-height: 1.4;
+    }
+
+    .lb-btn,
+    .lb-close {
+      flex: none;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--wine);
+      font-size: 1.4rem;
+      line-height: 1;
       cursor: pointer;
-    }
-
-    .lb-btn:hover {
-      background: rgba(255, 255, 255, 0.28);
     }
 
     .lb-close {
       position: absolute;
-      top: 6px;
+      top: 12px;
       right: 12px;
-      color: #fff;
     }
 
-    /* WhatsApp flotante */
+    /* ---------- WhatsApp flotante ---------- */
     .wa-float {
       position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 40;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: #25d366;
-      color: #fff;
+      right: 14px;
+      bottom: 14px;
+      z-index: 35;
       display: grid;
       place-items: center;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
-      transition: transform 0.15s ease;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--wa);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(31, 175, 90, 0.4);
     }
 
-    .wa-float:hover {
-      transform: scale(1.07);
-      text-decoration: none;
-    }
-
-    @media (max-width: 560px) {
-      .modal {
-        padding: 8px;
-      }
-
-      .modal-panel {
-        width: 100%;
-        max-height: 94vh;
-      }
-
-      .modal-grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 14px 12px 22px;
-        -webkit-overflow-scrolling: touch;
-        overscroll-behavior: contain;
-      }
-
-      .modal-grid button {
-        border-radius: 14px;
-      }
-
-      .lb-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 24px;
-      }
-    }
-
-    /* Personalization / steps */
-    .personalization {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .personalization-text p {
-      margin: 0 0 12px;
-      color: var(--text);
-    }
-
-    .steps {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 10px;
-      counter-reset: step;
-    }
-
-    .steps li {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 14px 16px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .steps .step-num {
+    .wa-float svg {
       width: 28px;
       height: 28px;
-      border-radius: 50%;
-      background: var(--accent-soft);
-      color: var(--accent-ink);
-      font-weight: 800;
-      font-size: 14px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      margin-top: 2px;
     }
 
-    .steps h3 {
-      margin: 0 0 2px;
-      font-size: 15px;
-      font-weight: 700;
-    }
-
-    .steps p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Contact */
-    .contact-card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      max-width: 560px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .contact-lead {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .contact-card .big-contact {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .contact-card a {
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .contact-note {
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    /* Footer */
-    footer.site {
-      border-top: 1px solid rgba(0, 0, 0, 0.06);
-      padding: 24px 0;
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 14px;
-      text-align: center;
-    }
-
-    .footer-note {
-      margin-top: 6px;
-      font-size: 13px;
-      opacity: 0.85;
-    }
-
-    /* Responsive */
-    @media (max-width: 720px) {
-      .site-header-inner {
-        padding: 12px 16px;
-      }
-
-      .brand {
-        font-size: 16px;
-      }
-
-      .site-nav {
-        gap: 14px;
-        order: 3;
-        width: 100%;
-        justify-content: center;
-        padding-top: 4px;
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-      }
-
-      .hero {
-        padding: 44px 0 28px;
-      }
-
-      .personalization {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery {
-        grid-template-columns: 1fr;
-      }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
   </style>
 </head>
-<body>
+<body id="top">
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <defs>
+      <linearGradient id="heartTop" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f8c5d0" />
+        <stop offset="1" stop-color="#e2829a" />
+      </linearGradient>
+      <path id="heart" d="M100 96C22 62 0 38 0 24 0 9 12 0 27 0c25 0 53 15 73 35C120 15 148 0 173 0c15 0 27 9 27 24 0 14-22 38-100 72Z" />
+    </defs>
+  </svg>
+
+  <section id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <button type="button" class="intro-entrar" id="intro-entrar-top">Ir al catálogo</button>
+    <div class="intro-card">
+      <img class="intro-logo" src="img/logo.png" alt="Logo de Creaciones y Detalles Stefy" width="92" height="92" />
+      <span class="intro-kicker">Bienvenida a</span>
+      <h2 class="intro-title" id="intro-title">Creaciones y Detalles Stefy</h2>
+      <p class="intro-text">
+        Detalles hechos a mano en Aipe: muñecos, ramos, cajas de regalo, velas y
+        decoración para cada ocasión.
+      </p>
+      <button type="button" class="btn-primary" id="intro-entrar">Ver el catálogo</button>
+      <p class="intro-foot">Entregas en todo Aipe, Huila · +57 305 235 6739</p>
+    </div>
+  </section>
+
   <header class="site">
-    <div class="container site-header-inner">
-      <div class="brand">
-        <img class="brand-mark" src="img/logo.png" alt="" width="42" height="42" />
-        <span>Creaciones y Detalles Stefy</span>
-      </div>
-      <nav class="site-nav" aria-label="Navegación principal">
+    <div class="hdr">
+      <a class="brand" href="#top">
+        <img src="img/logo.png" alt="" width="38" height="38" />
+        <span class="brand-name">Detalles Stefy</span>
+      </a>
+      <nav class="hdr-nav" aria-label="Navegación principal">
         <a href="#galeria">Catálogo</a>
         <a href="#pedido">Cómo pedir</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <div class="nav-actions">
-        <a href="#whatsapp" class="btn btn-primary">WhatsApp</a>
-      </div>
+      <button type="button" class="cart-btn" id="abrir-pedido" aria-haspopup="dialog">
+        Mi pedido <span class="badge" id="pedido-cuenta">0</span>
+      </button>
     </div>
+    <div class="strip" aria-hidden="true"></div>
   </header>
 
-  <main class="container">
+  <main>
     <section class="hero">
-      <span class="hero-badge">Hechas a mano con cariño</span>
-      <h1>
-        Detalles <span class="accent">personalizados</span><br />
-        para momentos especiales
-      </h1>
-      <p>
-        🌸 ¡En Creaciones y Detalles Stefy! 🎁✨<br /><br />
-        Creamos con amor muñecos navideños, ramos florales, arreglos, canastas de
-        regalo, velas y detalles para toda ocasión. 💐🎀<br /><br />
-        ¡Cada pedido es único y lo hacemos realidad junto a ti! ❤️<br /><br />
-        📍 Entregamos en todo Aipe.<br /><br />
-        💕 Pequeños detalles, grandes emociones.
+      <p class="eyebrow">Detalles para regalar y compartir</p>
+      <h1>Detalles que enamoran</h1>
+      <p class="lead">
+        Elige tu presentación favorita, mira los diseños que Stefy ya ha hecho y
+        arma tu pedido con ese toque especial.
       </p>
-      <div class="hero-cta">
-        <a href="#whatsapp" class="btn btn-primary">Pedir por WhatsApp</a>
-        <a href="#galeria" class="btn btn-ghost">Ver catálogo</a>
-      </div>
     </section>
 
-    <section id="galeria" class="block">
-      <div class="section-head">
-        <div>
-          <h2>Catálogo de creaciones</h2>
-          <p class="section-sub">
-            Cada tarjeta abre su propia galería con más fotos de ese catálogo.
-            Todos los trabajos se piden a medida, así que son solo referentes.
-          </p>
-        </div>
-      </div>
+    <section class="products" id="galeria" aria-label="Catálogo de creaciones">
+      <button class="product" type="button" data-cat="munecos">
+        <span class="frame"><img src="img/galeria/munecos-03.webp" alt="Oso de peluche con chocolates y globos de amor" width="720" height="960" decoding="async" /></span>
+        <svg class="pedestal" viewBox="0 0 200 68" aria-hidden="true" focusable="false">
+          <use href="#heart" transform="translate(0 18) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 15) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 12) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 9) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 6) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 3) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="scale(1 .42)" fill="url(#heartTop)" stroke="#fff" stroke-width="3"></use>
+        </svg>
+        <span class="p-type">Muñecos y personajes</span>
+        <span class="p-name">Para sorprender con ternura</span>
+        <span class="p-meta">Se combinan con dulces, flores y globos.<span class="p-count" data-count="munecos"></span></span>
+        <span class="p-price"><small>precio </small>según el diseño</span>
+        <span class="p-cta" aria-hidden="true">Elegir diseño</span>
+      </button>
 
-      <div class="gallery">
-        <!-- Muñecos -->
-        <article class="card">
-          <div class="card-media" data-gallery="munecos">
-            <img src="img/galeria/munecos-11.webp" alt="Regalo de graduación con peluche Kuromi y globo “Para la graduada más hermosa”" width="720" height="960" loading="lazy" decoding="async" />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Muñecos</h3>
-            <p class="card-desc">Muñecos y personajes que se combinan con dulces, flores y globos.</p>
-            <span class="card-tag">Para regalar</span>
-            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="munecos">Ver las 13 fotos</button>
-          </div>
-        </article>
+      <button class="product" type="button" data-cat="ramos">
+        <span class="frame"><img src="img/galeria/ramos-11.webp" alt="Ramo de rosas naranjas y blancas con lazo naranja" width="720" height="960" decoding="async" /></span>
+        <svg class="pedestal" viewBox="0 0 200 68" aria-hidden="true" focusable="false">
+          <use href="#heart" transform="translate(0 18) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 15) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 12) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 9) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 6) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 3) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="scale(1 .42)" fill="url(#heartTop)" stroke="#fff" stroke-width="3"></use>
+        </svg>
+        <span class="p-type">Ramos y arreglos</span>
+        <span class="p-name">Flores que no se marchitan</span>
+        <span class="p-meta">Girasoles, rosas y flores de tela con chocolates.<span class="p-count" data-count="ramos"></span></span>
+        <span class="p-price"><small>precio </small>según el diseño</span>
+        <span class="p-cta" aria-hidden="true">Elegir diseño</span>
+      </button>
 
-        <!-- Ramos y arreglos -->
-        <article class="card">
-          <div class="card-media" data-gallery="ramos">
-            <img src="img/galeria/ramos-11.webp" alt="Ramo de rosas naranjas y flores blancas con lazo naranja brillante" width="720" height="960" loading="lazy" decoding="async" />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Ramos y arreglos</h3>
-            <p class="card-desc">Ramos de girasoles, rosas y flores combinadas con chocolates y dulces.</p>
-            <span class="card-tag">Hechos a mano</span>
-            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="ramos">Ver las 17 fotos</button>
-          </div>
-        </article>
+      <button class="product" type="button" data-cat="cajas">
+        <span class="frame"><img src="img/galeria/cajas-01.webp" alt="Caja dorada de cumpleaños con cosméticos y chocolates" width="720" height="960" decoding="async" /></span>
+        <svg class="pedestal" viewBox="0 0 200 68" aria-hidden="true" focusable="false">
+          <use href="#heart" transform="translate(0 18) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 15) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 12) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 9) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 6) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 3) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="scale(1 .42)" fill="url(#heartTop)" stroke="#fff" stroke-width="3"></use>
+        </svg>
+        <span class="p-type">Cajas y canastas regalo</span>
+        <span class="p-name">Un detalle bien empacado</span>
+        <span class="p-meta">Dulces, snacks, bebidas y cosméticos con tu mensaje.<span class="p-count" data-count="cajas"></span></span>
+        <span class="p-price"><small>precio </small>según el diseño</span>
+        <span class="p-cta" aria-hidden="true">Elegir diseño</span>
+      </button>
 
-        <!-- Cajas y canastas regalo -->
-        <article class="card">
-          <div class="card-media" data-gallery="cajas">
-            <img src="img/galeria/cajas-15.webp" alt="Caja rosa con rosas, frutas frescas y globo “Feliz cumpleaños”" width="720" height="960" loading="lazy" decoding="async" />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Cajas y canastas regalo</h3>
-            <p class="card-desc">Cajas y canastas con dulces, snacks, bebidas, cosméticos y un mensaje tuyo.</p>
-            <span class="card-tag">Cumpleaños, amor, amistad</span>
-            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="cajas">Ver las 26 fotos</button>
-          </div>
-        </article>
+      <button class="product" type="button" data-cat="celebraciones">
+        <span class="frame"><img src="img/galeria/celebraciones-04.webp" alt="Canasta “Mamá eres mi todo” con globos" width="720" height="960" decoding="async" /></span>
+        <svg class="pedestal" viewBox="0 0 200 68" aria-hidden="true" focusable="false">
+          <use href="#heart" transform="translate(0 18) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 15) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 12) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 9) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 6) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 3) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="scale(1 .42)" fill="url(#heartTop)" stroke="#fff" stroke-width="3"></use>
+        </svg>
+        <span class="p-type">Celebraciones</span>
+        <span class="p-name">Para mamá, papá y más</span>
+        <span class="p-meta">Día de la Madre, del Hombre, aniversarios y cumpleaños.<span class="p-count" data-count="celebraciones"></span></span>
+        <span class="p-price"><small>precio </small>según el diseño</span>
+        <span class="p-cta" aria-hidden="true">Elegir diseño</span>
+      </button>
 
-        <!-- Celebraciones -->
-        <article class="card">
-          <div class="card-media" data-gallery="celebraciones">
-            <img src="img/galeria/celebraciones-12.webp" alt="Caja de regalo con frutas, chocolates y globo rojo “Te amo mamita”" width="720" height="960" loading="lazy" decoding="async" />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Celebraciones</h3>
-            <p class="card-desc">Detalles para el Día de la Madre, del Hombre, aniversarios y cumpleaños.</p>
-            <span class="card-tag">Mamá, papá y más</span>
-            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="celebraciones">Ver las 19 fotos</button>
-          </div>
-        </article>
+      <button class="product" type="button" data-cat="velas">
+        <span class="frame"><img src="img/galeria/velas-01.webp" alt="Velas decoradas con mensajes en su caja" width="720" height="960" decoding="async" /></span>
+        <svg class="pedestal" viewBox="0 0 200 68" aria-hidden="true" focusable="false">
+          <use href="#heart" transform="translate(0 18) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 15) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 12) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 9) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 6) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 3) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="scale(1 .42)" fill="url(#heartTop)" stroke="#fff" stroke-width="3"></use>
+        </svg>
+        <span class="p-type">Velas</span>
+        <span class="p-name">Luz con mensaje</span>
+        <span class="p-meta">Velas decoradas con frases, en su caja con tarjeta.<span class="p-count" data-count="velas"></span></span>
+        <span class="p-price"><small>precio </small>según el diseño</span>
+        <span class="p-cta" aria-hidden="true">Elegir diseño</span>
+      </button>
 
-        <!-- Velas -->
-        <article class="card">
-          <div class="card-media" data-gallery="velas">
-            <img src="img/galeria/velas-01.webp" alt="Caja regalo con diez velas de colores con mensajes y flores blancas" width="720" height="960" loading="lazy" decoding="async" />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Velas</h3>
-            <p class="card-desc">Velas decoradas con mensajes, presentadas en su caja con tarjeta para regalar.</p>
-            <span class="card-tag">Día de Velitas</span>
-            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="velas">Ver las 9 fotos</button>
-          </div>
-        </article>
-
-        <!-- Navidad -->
-        <article class="card">
-          <div class="card-media" data-gallery="navidad">
-            <img src="img/galeria/navidad-01.webp" alt="Tren navideño de muñecos de tela con Papá Noel, nievecitas y ositos sobre carrito" width="720" height="960" loading="lazy" decoding="async" />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">Navidad</h3>
-            <p class="card-desc">Muñecos de tela, renos, Papá Noel, calcetines y caminos de mesa para diciembre.</p>
-            <span class="card-tag">Diciembre</span>
-            <button type="button" class="btn btn-ghost card-gallery-btn" data-gallery="navidad">Ver las 11 fotos</button>
-          </div>
-        </article>
-      </div>
+      <button class="product" type="button" data-cat="navidad">
+        <span class="frame"><img src="img/galeria/navidad-01.webp" alt="Detalle navideño hecho a mano" width="720" height="960" decoding="async" /></span>
+        <svg class="pedestal" viewBox="0 0 200 68" aria-hidden="true" focusable="false">
+          <use href="#heart" transform="translate(0 18) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 15) scale(1 .42)" fill="#d9748c"></use>
+          <use href="#heart" transform="translate(0 12) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 9) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 6) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="translate(0 3) scale(1 .42)" fill="#e58aa0"></use>
+          <use href="#heart" transform="scale(1 .42)" fill="url(#heartTop)" stroke="#fff" stroke-width="3"></use>
+        </svg>
+        <span class="p-type">Navidad</span>
+        <span class="p-name">Diciembre hecho a mano</span>
+        <span class="p-meta">Papá Noel, renos, calcetines y caminos de mesa.<span class="p-count" data-count="navidad"></span></span>
+        <span class="p-price"><small>precio </small>según el diseño</span>
+        <span class="p-cta" aria-hidden="true">Elegir diseño</span>
+      </button>
     </section>
 
-    <section id="pedido" class="block">
-      <div class="section-head">
-        <div>
-          <h2>Cómo poner un pedido</h2>
-          <p class="section-sub">
-            No necesitas tener todo definido para empezar: cuéntale la idea
-            y Stefy te ayuda a ajustarla.
-          </p>
-        </div>
-      </div>
-
-      <div class="personalization">
-        <div class="personalization-text">
-          <p>
-            Basta con escribir por WhatsApp y contar qué buscas: la ocasión,
-            la fecha, un color o una idea a medias. Ella te orienta sobre
-            cómo se puede hacer.
-          </p>
-          <p>
-            La mayoría de los pedidos son para eventos: citas, cumpleaños,
-            celebraciones familiares o detalles especiales para alguien
-            querido.
-          </p>
-          <p>
-            <a href="#whatsapp" class="btn btn-ghost">Empezar un pedido</a>
-          </p>
-        </div>
-
-        <ol class="steps">
-          <li>
-            <span class="step-num" aria-hidden="true">1</span>
-            <div>
-              <h3>Cuéntale tu idea</h3>
-              <p>Escribe por WhatsApp con la idea, la fecha y el motivo. Si aún no lo tienes claro, también sirve.</p>
-            </div>
-          </li>
-          <li>
-            <span class="step-num" aria-hidden="true">2</span>
-            <div>
-              <h3>Ajustan el diseño juntos</h3>
-              <p>Stefy te propone cambios de color, tamaño o detalle hasta que quede como lo quieres.</p>
-            </div>
-          </li>
-          <li>
-            <span class="step-num" aria-hidden="true">3</span>
-            <div>
-              <h3>Te lo muestran y lo entregan</h3>
-              <p>Cuando esté listo te envían la foto final y acuerdan cómo lo recibes.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <section id="contacto" class="block">
-      <div class="section-head centered">
-        <div>
-          <h2>Contacto</h2>
-          <p class="section-sub">
-            Para pedidos, preguntas o ideas, escríbenos por WhatsApp.
-          </p>
-        </div>
-      </div>
-
-      <div class="contact-card">          <p class="contact-lead">
-            ¿Tienes un detalle en mente? Cuéntale a Stefy lo que quieres.
-          </p>
-          <p class="contact-note">
-            Pide tu presupuesto sin compromiso: responde en el momento con la
-            idea, la fecha y el lugar de entrega.
-          </p>
-        <div class="big-contact" id="whatsapp">
-          <a href="https://wa.me/573052356739?text=Hola%20Stefy%2C%20me%20interesa%20un%20detalle%20personalizado"
-             class="btn btn-primary btn-lg"
-             target="_blank"
-             rel="noopener">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" focusable="false">
-              <path d="M17.4 10.3c0-2.1 1.7-3.8 3.8-3.8h1.8c2.1 0 3.8 1.7 3.8 3.8 0 .7-.2 1.3-.6 1.8l-2.6 3.2-1-.5c-.3-.1-.6-.2-.9-.2-1.2 0-2.2.8-2.6 1.9l-.7 2.8v.2c0 1.6-1.3 2.8-2.9 2.8h-1.7c-1.6 0-2.9-1.2-2.9-2.8v-.3l-.3-.3v-.3H7.2c.5.1.9.3 1.3.5l.7-2.8c.4-.9.7-1.6.7-2.4 0-2.2-1.8-3.8-4.1-3.8h-1.9c-2.3 0-4.1 1.6-4.1 3.9 0 1 .2 1.9.6 2.6l.5.6.5-.6c.4-.7.6-1.6.6-2.6h-2.3c0 .4 0 .8.1 1.2l2.1 2.6-.8-.3c-.3-.1-.6-.2-.9-.2-1.2 0-2.2.8-2.6 1.9l-.6 2.6v.1c0 1.7-1.4 3-3.1 3h-1.7c-1.7 0-3.1-1.3-3.1-3v-.2l-.3-.3v-.2H5.2c.5 0 .9.1 1.3.3l.6-2.6c.5-1 .8-1.8.8-2.7 0-2.4-2-4.3-4.5-4.3h-2c-2.5 0-4.5 1.9-4.5 4.4 0 .9.3 1.7.7 2.3l.7.9-.4.4-1-.9c-.4-.4-.7-.8-.7-1.3 0-.6.2-1.2.6-1.6l2.4-3 1 .6c.3.2.6.3.9.3 1.3 0 2.3-1 2.7-2l.4-2.6v-.1c0-1.7 1.4-3 3.1-3h1.7c1.7 0 3.1 1.3 3.1 3v.3l.3.3v.3h2.1c-.5-.1-.9-.2-1.3-.4l-.6 2.6c-.5 1-.8 1.9-.8 2.9 0 2.5 2 4.5 4.5 4.5h2.1c2.5 0 4.5-2 4.5-4.5 0-.7-.1-1.4-.3-2l-2.3-2.9.8.4c.3.1.6.2.9.2 1.2 0 2.2-.8 2.6-1.9l.6-2.6v-.2c0-1.6 1.3-2.9 2.9-2.9h1.7c1.6 0 2.9 1.3 2.9 2.9v.3l.3.3v.3h2z"/>
-            </svg>
-            Escribir por WhatsApp
-          </a>
-
-          <p class="contact-note">
-            Si aún no sabes qué pedir, cuéntale la ocasión y te ayuda a elegir
-            el detalle que mejor encaje.
-          </p>
-        </div>
-      </div>
+    <section class="steps-band" id="pedido">
+      <h2>Cómo poner un pedido</h2>
+      <p>No necesitas tenerlo todo claro: elige una foto que te guste y Stefy ajusta el diseño contigo.</p>
+      <ol class="steps">
+        <li>
+          <span class="step-num" aria-hidden="true">1</span>
+          <div>
+            <h3>Elige el diseño</h3>
+            <p>Toca «Elegir diseño» en una tarjeta, mira las fotos y agrega lo que quieras.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">2</span>
+          <div>
+            <h3>Ajustan los detalles juntos</h3>
+            <p>Stefy te escribe por WhatsApp para acordar colores, tamaño y precio.</p>
+          </div>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">3</span>
+          <div>
+            <h3>Lo recibes en Aipe</h3>
+            <p>Te envía la foto del detalle terminado y acuerdan la entrega en el municipio.</p>
+          </div>
+        </li>
+      </ol>
     </section>
   </main>
 
-  <footer class="site">
-    <div class="container">
-      <p>
-        Creaciones y Detalles Stefy —
-        muñecos, ramos y arreglos, cajas y canastas de regalo,
-        velas y detalles personalizados en Aipe, Huila.
-      </p>
-      <p class="footer-note">
-        Entregas en el municipio de Aipe, Huila
-      </p>
-      <p class="footer-note">
-        <a href="https://www.facebook.com/share/18htLcSjsm/" target="_blank" rel="noopener">Facebook</a>
-        · <a href="https://wa.me/573052356739">WhatsApp</a>
-        · © 2026 Creaciones y Detalles Stefy
-      </p>
+  <footer class="site" id="contacto">
+    <div class="foot-logo">
+      <img src="img/logo.png" alt="Creaciones y Detalles Stefy" width="58" height="58" />
     </div>
+    <p class="foot-script">Creaciones y Detalles Stefy · Pequeños detalles, grandes sonrisas.</p>
+    <p class="foot-text">
+      Muñecos, ramos, cajas, velas y decoración hechos a mano en Aipe, Huila.
+      Entregas solo en el municipio.
+    </p>
+    <a class="wa-btn" id="whatsapp"
+       href="https://wa.me/573052356739?text=Hola%20Stefy%2C%20me%20interesa%20un%20detalle%20personalizado"
+       target="_blank" rel="noopener">
+      ¿Te ayudo a elegir? Escríbeme por WhatsApp
+    </a>
+    <p class="foot-links">
+      +57 305 235 6739 ·
+      <a href="https://www.facebook.com/share/18htLcSjsm/" target="_blank" rel="noopener">Facebook</a>
+      · © 2026 Creaciones y Detalles Stefy
+    </p>
   </footer>
+
+  <a class="wa-float" href="https://wa.me/573052356739?text=Hola%20Stefy%2C%20me%20interesa%20un%20detalle%20personalizado"
+     target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" title="Escribir por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8c1.9 1 4 1.6 6.2 1.6 7.2 0 13-5.8 13-13S23.2 3 16 3Zm0 23.6c-2 0-3.9-.5-5.5-1.5l-.4-.2-4 1.1 1.1-3.9-.3-.4A10.5 10.5 0 0 1 5.4 16C5.4 10.1 10.1 5.4 16 5.4S26.6 10.1 26.6 16 21.9 26.6 16 26.6Zm6-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.5 0-.2-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 .9-1 2.2s1 2.5 1.1 2.7c.2.2 1.9 3 4.7 4.1 2.3.9 2.8.8 3.3.7.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/>
+    </svg>
+  </a>
+
+  <div class="sheet" id="hoja-detalle" hidden>
+    <div class="sheet-backdrop" data-sheet-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="detalle-nombre">
+      <div class="sheet-head">
+        <div>
+          <span class="p-type" id="detalle-tipo"></span>
+          <h2 class="sheet-title" id="detalle-nombre">Elegir diseño</h2>
+        </div>
+        <button type="button" class="sheet-close" data-sheet-close aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="sheet-body">
+        <div class="detalle-media">
+          <img id="detalle-img" src="img/galeria/munecos-03.webp" alt="" width="720" height="960" />
+        </div>
+        <p class="detalle-cap" id="detalle-cap"></p>
+        <div class="detalle-thumbs" id="detalle-thumbs" aria-label="Diseños de referencia"></div>
+        <button type="button" class="link-btn" id="detalle-ver-galeria">Ver todas las fotos</button>
+      </div>
+      <div class="detalle-foot">
+        <div class="qty">
+          <button type="button" id="detalle-menos" aria-label="Quitar uno">&minus;</button>
+          <span id="detalle-qty" aria-live="polite">1</span>
+          <button type="button" id="detalle-mas" aria-label="Agregar uno">+</button>
+        </div>
+        <button type="button" class="btn-primary" id="detalle-add">Agregar a mi pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="hoja-pedido" hidden>
+    <div class="sheet-backdrop" data-sheet-close></div>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="pedido-titulo">
+      <div class="sheet-head">
+        <div>
+          <span class="p-type">Tu pedido</span>
+          <h2 class="sheet-title" id="pedido-titulo">Mi pedido</h2>
+        </div>
+        <button type="button" class="sheet-close" data-sheet-close aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="sheet-body">
+        <p class="pedido-vacio" id="pedido-vacio">
+          Tu pedido está vacío.<br />
+          <button type="button" class="link-btn" data-sheet-close>Ver los productos</button>
+        </p>
+        <div id="pedido-lista"></div>
+        <form id="pedido-form" hidden>
+          <p class="form-title">Datos de entrega</p>
+          <label>Tu nombre
+            <input name="nombre" required autocomplete="name" />
+          </label>
+          <label>Dirección o barrio en Aipe
+            <input name="direccion" required autocomplete="street-address" />
+          </label>
+          <label>¿Para qué día lo necesitas?
+            <input name="fecha" type="date" />
+          </label>
+          <label>Algo que deba saber Stefy
+            <textarea name="nota" rows="2" placeholder="Colores, nombres, dedicatoria…"></textarea>
+          </label>
+        </form>
+      </div>
+      <div class="sheet-foot" id="pedido-foot" hidden>
+        <button type="submit" form="pedido-form" class="wa-send">Enviar pedido por WhatsApp</button>
+        <p class="nota">Stefy te confirma el valor por WhatsApp según el diseño que elijas 💛</p>
+      </div>
+    </div>
+  </div>
 
   <div class="modal" id="galeria-modal" hidden>
     <div class="modal-backdrop" data-cerrar></div>
@@ -996,14 +1606,6 @@
       </div>
     </div>
   </div>
-
-  <a class="wa-float" href="https://wa.me/573052356739?text=Hola%20Stefy%2C%20me%20interesa%20un%20detalle%20personalizado"
-     target="_blank" rel="noopener" aria-label="Escribir por WhatsApp" title="Escribir por WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
-      <path d="M17.4 10.3c0-2.1 1.7-3.8 3.8-3.8h1.8c2.1 0 3.8 1.7 3.8 3.8 0 .7-.2 1.3-.6 1.8l-2.6 3.2-1-.5c-.3-.1-.6-.2-.9-.2-1.2 0-2.2.8-2.6 1.9l-.7 2.8v.2c0 1.6-1.3 2.8-2.9 2.8h-1.7c-1.6 0-2.9-1.2-2.9-2.8v-.3l-.3-.3v-.3H7.2c.5.1.9.3 1.3.5l.7-2.8c.4-.9.7-1.6.7-2.4 0-2.2-1.8-3.8-4.1-3.8h-1.9c-2.3 0-4.1 1.6-4.1 3.9 0 1 .2 1.9.6 2.6l.5.6.5-.6c.4-.7.6-1.6.6-2.6h-2.3c0 .4 0 .8.1 1.2l2.1 2.6-.8-.3c-.3-.1-.6-.2-.9-.2-1.2 0-2.2.8-2.6 1.9l-.6 2.6v.1c0 1.7-1.4 3-3.1 3h-1.7c-1.7 0-3.1-1.3-3.1-3v-.2l-.3-.3v-.2H5.2c.5 0 .9.1 1.3.3l.6-2.6c.5-1 .8-1.8.8-2.7 0-2.4-2-4.3-4.5-4.3h-2c-2.5 0-4.5 1.9-4.5 4.4 0 .9.3 1.7.7 2.3l.7.9-.4.4-1-.9c-.4-.4-.7-.8-.7-1.3 0-.6.2-1.2.6-1.6l2.4-3 1 .6c.3.2.6.3.9.3 1.3 0 2.3-1 2.7-2l.4-2.6v-.1c0-1.7 1.4-3 3.1-3h1.7c1.7 0 3.1 1.3 3.1 3v.3l.3.3v.3h2.1c-.5-.1-.9-.2-1.3-.4l-.6 2.6c-.5 1-.8 1.9-.8 2.9 0 2.5 2 4.5 4.5 4.5h2.1c2.5 0 4.5-2 4.5-4.5 0-.7-.1-1.4-.3-2l-2.3-2.9.8.4c.3.1.6.2.9.2 1.2 0 2.2-.8 2.6-1.9l.6-2.6v-.2c0-1.6 1.3-2.9 2.9-2.9h1.7c1.6 0 2.9 1.3 2.9 2.9v.3l.3.3v.3h2z"/>
-    </svg>
-  </a>
-
   <script>
     (function () {
       var BASE = "img/galeria/";
@@ -1135,6 +1737,8 @@
         }
       };
 
+      window.stefyGalerias = galerias;
+
       var modal = document.getElementById("galeria-modal");
       var grid = document.getElementById("galeria-grid");
       var titulo = document.getElementById("galeria-titulo");
@@ -1196,6 +1800,8 @@
         mostrar(posicion + paso);
       }
 
+      window.stefyAbrirGaleria = abrir;
+
       document.querySelectorAll("[data-gallery]").forEach(function (elem) {
         var g = galerias[elem.dataset.gallery];
         if (g && elem.classList.contains("card-gallery-btn")) {
@@ -1245,6 +1851,429 @@
           }
         }
       });
+    })();
+  </script>
+  <script>
+    /* Elegir diseño, mi pedido y envío por WhatsApp */
+    (function () {
+      var WHATSAPP = "573052356739";
+      var CLAVE = "stefy-pedido";
+      var galerias = window.stefyGalerias || {};
+      var tarjetas = document.querySelectorAll(".product");
+      var hojaDetalle = document.getElementById("hoja-detalle");
+      var hojaPedido = document.getElementById("hoja-pedido");
+      var detalleImg = document.getElementById("detalle-img");
+      var detalleCap = document.getElementById("detalle-cap");
+      var detalleTipo = document.getElementById("detalle-tipo");
+      var detalleNombre = document.getElementById("detalle-nombre");
+      var detalleThumbs = document.getElementById("detalle-thumbs");
+      var detalleQty = document.getElementById("detalle-qty");
+      var lista = document.getElementById("pedido-lista");
+      var vacio = document.getElementById("pedido-vacio");
+      var form = document.getElementById("pedido-form");
+      var piePedido = document.getElementById("pedido-foot");
+      var cuenta = document.getElementById("pedido-cuenta");
+      var pedido = [];
+      var actual = null;
+      var abridor = null;
+
+      /* --- Pedido guardado --- */
+      try {
+        var guardado = JSON.parse(localStorage.getItem(CLAVE) || "[]");
+        if (Object.prototype.toString.call(guardado) === "[object Array]") pedido = guardado;
+      } catch (e) {
+        pedido = [];
+      }
+
+      function guardar() {
+        try {
+          localStorage.setItem(CLAVE, JSON.stringify(pedido));
+        } catch (e) {}
+      }
+
+      function total() {
+        return pedido.reduce(function (suma, item) {
+          return suma + item.cantidad;
+        }, 0);
+      }
+
+      function pintarCuenta() {
+        cuenta.textContent = total();
+      }
+
+      /* --- Contador de diseños en cada tarjeta --- */
+      Array.prototype.forEach.call(tarjetas, function (tarjeta) {
+        var cat = tarjeta.getAttribute("data-cat");
+        var g = galerias[cat];
+        if (!g) return;
+        var marca = tarjeta.querySelector('[data-count="' + cat + '"]');
+        if (marca) {
+          marca.textContent = "Elige entre " + g.fotos.length + " diseños";
+        }
+      });
+
+      /* --- Hoja de elegir diseño --- */
+      function abrirHoja(hoja, disparador) {
+        abridor = disparador || document.activeElement;
+        hoja.hidden = false;
+        document.body.classList.add("sheet-open");
+        var cerrarBtn = hoja.querySelector(".sheet-close");
+        if (cerrarBtn) cerrarBtn.focus();
+      }
+
+      function cerrarHoja(hoja) {
+        hoja.hidden = true;
+        if (!document.querySelector(".sheet:not([hidden])")) {
+          document.body.classList.remove("sheet-open");
+        }
+        if (abridor && abridor.focus) abridor.focus();
+      }
+
+      function pintarDetalle() {
+        var g = galerias[actual.cat];
+        var foto = g.fotos[actual.i];
+        detalleImg.src = "img/galeria/" + foto[0];
+        detalleImg.alt = foto[1];
+        detalleCap.textContent = foto[1] + " · " + (actual.i + 1) + " de " + g.fotos.length;
+        detalleQty.textContent = actual.cantidad;
+        Array.prototype.forEach.call(detalleThumbs.children, function (boton, i) {
+          boton.setAttribute("aria-pressed", i === actual.i ? "true" : "false");
+        });
+      }
+
+      function abrirDetalle(cat, disparador) {
+        var g = galerias[cat];
+        if (!g) return;
+        actual = { cat: cat, i: 0, cantidad: 1 };
+        detalleTipo.textContent = g.titulo;
+        detalleNombre.textContent = g.titulo;
+        detalleThumbs.innerHTML = "";
+        g.fotos.forEach(function (foto, i) {
+          var boton = document.createElement("button");
+          boton.type = "button";
+          boton.setAttribute("aria-pressed", "false");
+          boton.setAttribute("aria-label", "Diseño " + (i + 1) + ": " + foto[1]);
+          var img = document.createElement("img");
+          img.src = "img/galeria/" + foto[0];
+          img.alt = "";
+          img.loading = "lazy";
+          img.width = 720;
+          img.height = 960;
+          boton.appendChild(img);
+          boton.addEventListener("click", function () {
+            actual.i = i;
+            pintarDetalle();
+          });
+          detalleThumbs.appendChild(boton);
+        });
+        pintarDetalle();
+        abrirHoja(hojaDetalle, disparador);
+        detalleThumbs.scrollLeft = 0;
+      }
+
+      Array.prototype.forEach.call(tarjetas, function (tarjeta) {
+        tarjeta.addEventListener("click", function () {
+          var cat = tarjeta.getAttribute("data-cat");
+          var tipo = tarjeta.querySelector(".p-type");
+          var nombre = tarjeta.querySelector(".p-name");
+          abrirDetalle(cat, tarjeta);
+          if (tipo) detalleTipo.textContent = tipo.textContent;
+          if (nombre) detalleNombre.textContent = nombre.textContent;
+        });
+      });
+
+      document.getElementById("detalle-menos").addEventListener("click", function () {
+        if (!actual) return;
+        actual.cantidad = Math.max(1, actual.cantidad - 1);
+        pintarDetalle();
+      });
+
+      document.getElementById("detalle-mas").addEventListener("click", function () {
+        if (!actual) return;
+        actual.cantidad = Math.min(20, actual.cantidad + 1);
+        pintarDetalle();
+      });
+
+      document.getElementById("detalle-ver-galeria").addEventListener("click", function () {
+        var cat = actual ? actual.cat : null;
+        cerrarHoja(hojaDetalle);
+        if (cat && window.stefyAbrirGaleria) window.stefyAbrirGaleria(cat);
+      });
+
+      document.getElementById("detalle-add").addEventListener("click", function () {
+        if (!actual) return;
+        var g = galerias[actual.cat];
+        var foto = g.fotos[actual.i];
+        var encontrado = null;
+        pedido.forEach(function (item) {
+          if (item.cat === actual.cat && item.foto === foto[0]) encontrado = item;
+        });
+        if (encontrado) {
+          encontrado.cantidad = Math.min(20, encontrado.cantidad + actual.cantidad);
+        } else {
+          pedido.push({
+            cat: actual.cat,
+            tipo: g.titulo,
+            foto: foto[0],
+            desc: foto[1],
+            cantidad: actual.cantidad
+          });
+        }
+        guardar();
+        pintarCuenta();
+        pintarPedido();
+        cerrarHoja(hojaDetalle);
+        abrirHoja(hojaPedido);
+      });
+
+      /* --- Hoja de mi pedido --- */
+      function pintarPedido() {
+        lista.innerHTML = "";
+        if (!pedido.length) {
+          vacio.hidden = false;
+          form.hidden = true;
+          piePedido.hidden = true;
+          pintarCuenta();
+          return;
+        }
+        vacio.hidden = true;
+        form.hidden = false;
+        piePedido.hidden = false;
+        pedido.forEach(function (item, indice) {
+          var fila = document.createElement("div");
+          fila.className = "pedido-item";
+
+          var img = document.createElement("img");
+          img.src = "img/galeria/" + item.foto;
+          img.alt = "";
+          img.loading = "lazy";
+          img.width = 58;
+          img.height = 72;
+
+          var info = document.createElement("div");
+          info.className = "pi-info";
+
+          var cat = document.createElement("span");
+          cat.className = "pi-cat";
+          cat.textContent = item.tipo || "";
+
+          var desc = document.createElement("span");
+          desc.className = "pi-desc";
+          desc.textContent = item.desc;
+
+          var herramientas = document.createElement("div");
+          herramientas.className = "pi-tools";
+
+          var caja = document.createElement("div");
+          caja.className = "qty";
+
+          var menos = document.createElement("button");
+          menos.type = "button";
+          menos.textContent = "−";
+          menos.setAttribute("aria-label", "Quitar uno de " + item.desc);
+          menos.addEventListener("click", function () {
+            item.cantidad = Math.max(1, item.cantidad - 1);
+            guardar();
+            pintarPedido();
+          });
+
+          var num = document.createElement("span");
+          num.textContent = item.cantidad;
+
+          var mas = document.createElement("button");
+          mas.type = "button";
+          mas.textContent = "+";
+          mas.setAttribute("aria-label", "Agregar uno de " + item.desc);
+          mas.addEventListener("click", function () {
+            item.cantidad = Math.min(20, item.cantidad + 1);
+            guardar();
+            pintarPedido();
+          });
+
+          var quitar = document.createElement("button");
+          quitar.type = "button";
+          quitar.className = "pi-remove";
+          quitar.textContent = "Quitar";
+          quitar.addEventListener("click", function () {
+            pedido.splice(indice, 1);
+            guardar();
+            pintarPedido();
+          });
+
+          caja.appendChild(menos);
+          caja.appendChild(num);
+          caja.appendChild(mas);
+          herramientas.appendChild(caja);
+          herramientas.appendChild(quitar);
+          info.appendChild(cat);
+          info.appendChild(desc);
+          info.appendChild(herramientas);
+          fila.appendChild(img);
+          fila.appendChild(info);
+          lista.appendChild(fila);
+        });
+        pintarCuenta();
+      }
+
+      document.getElementById("abrir-pedido").addEventListener("click", function (evento) {
+        pintarPedido();
+        abrirHoja(hojaPedido, evento.currentTarget);
+      });
+
+      form.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+        if (!pedido.length) return;
+        var datos = new FormData(form);
+        var nombre = (datos.get("nombre") || "").toString().trim();
+        var direccion = (datos.get("direccion") || "").toString().trim();
+        var fecha = (datos.get("fecha") || "").toString().trim();
+        var nota = (datos.get("nota") || "").toString().trim();
+
+        if (!nombre || !direccion) {
+          form.reportValidity();
+          return;
+        }
+
+        var lineas = ["Hola Stefy 👋 Quiero hacer este pedido:"];
+        pedido.forEach(function (item, i) {
+          lineas.push(
+            (i + 1) + ". " + (item.tipo || "") + " — " + item.desc + " (x" + item.cantidad + ")"
+          );
+        });
+        lineas.push("");
+        lineas.push("Nombre: " + nombre);
+        lineas.push("Entrega en: " + direccion + ", Aipe");
+        if (fecha) lineas.push("Para el día: " + fecha);
+        if (nota) lineas.push("Detalle: " + nota);
+
+        var url = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(lineas.join("\n"));
+        window.open(url, "_blank", "noopener");
+      });
+
+      /* --- Cerrar hojas --- */
+      document.querySelectorAll("[data-sheet-close]").forEach(function (elem) {
+        elem.addEventListener("click", function () {
+          var hoja = elem.closest(".sheet");
+          if (hoja) cerrarHoja(hoja);
+        });
+      });
+
+      document.addEventListener("keydown", function (evento) {
+        var galeria = document.getElementById("galeria-modal");
+        if (galeria && !galeria.hidden) return;
+        var abierta = document.querySelector(".sheet:not([hidden])");
+        if (!abierta) return;
+
+        if (evento.key === "Escape") {
+          cerrarHoja(abierta);
+          return;
+        }
+
+        if (evento.key !== "Tab") return;
+        // Trampa de foco: Tab no se escapa a la página que está detrás
+        var foco = [].filter.call(
+          abierta.querySelectorAll(
+            'a[href], button:not([disabled]), input:not([type="hidden"]), textarea, select, [tabindex]:not([tabindex="-1"])'
+          ),
+          function (el) {
+            return el.offsetParent !== null || el === document.activeElement;
+          }
+        );
+        if (!foco.length) return;
+        var primero = foco[0];
+        var ultimo = foco[foco.length - 1];
+        if (evento.shiftKey && document.activeElement === primero) {
+          evento.preventDefault();
+          ultimo.focus();
+        } else if (!evento.shiftKey && document.activeElement === ultimo) {
+          evento.preventDefault();
+          primero.focus();
+        } else if (!abierta.contains(document.activeElement)) {
+          evento.preventDefault();
+          primero.focus();
+        }
+      });
+
+      pintarPedido();
+
+      /* --- Portada de bienvenida: no se repite en la misma sesión --- */
+      (function () {
+        var intro = document.getElementById("intro");
+        if (!intro) return;
+        var boton = document.getElementById("intro-entrar");
+        var botonTop = document.getElementById("intro-entrar-top");
+        var yaVista = document.documentElement.getAttribute("data-intro") === "off";
+
+        if (!yaVista) {
+          document.body.classList.add("intro-open");
+          window.setTimeout(function () {
+            if (boton) boton.focus();
+          }, 90);
+        }
+
+        function cerrar(destino) {
+          if (intro.hidden || intro.classList.contains("is-closing")) return;
+          intro.classList.add("is-closing");
+          document.body.classList.remove("intro-open");
+          try {
+            sessionStorage.setItem("stefy-intro", "1");
+          } catch (e) {}
+          window.setTimeout(function () {
+            intro.hidden = true;
+            document.documentElement.setAttribute("data-intro", "off");
+          }, 360);
+          if (destino) {
+            window.setTimeout(function () {
+              var objetivo = document.querySelector(destino);
+              if (!objetivo) return;
+              if (history.replaceState) history.replaceState(null, "", destino);
+              var cabecera = document.querySelector("header.site");
+              var alto = cabecera ? cabecera.getBoundingClientRect().height : 0;
+              var y = objetivo.getBoundingClientRect().top + (window.pageYOffset || 0) - alto - 10;
+              window.scrollTo(0, Math.max(0, y));
+            }, 140);
+          }
+        }
+
+        if (boton) {
+          boton.addEventListener("click", function () {
+            cerrar("#galeria");
+          });
+        }
+
+        if (botonTop) {
+          botonTop.addEventListener("click", function () {
+            cerrar("#galeria");
+          });
+        }
+
+        intro.addEventListener("click", function (evento) {
+          if (evento.target === intro) cerrar();
+        });
+
+        document.addEventListener("keydown", function (evento) {
+          if (intro.hidden) return;
+          if (evento.key === "Escape") {
+            cerrar();
+            return;
+          }
+          if (evento.key !== "Tab") return;
+          var foco = intro.querySelectorAll("a[href], button:not([disabled])");
+          if (!foco.length) return;
+          var primero = foco[0];
+          var ultimo = foco[foco.length - 1];
+          if (evento.shiftKey && document.activeElement === primero) {
+            evento.preventDefault();
+            ultimo.focus();
+          } else if (!evento.shiftKey && document.activeElement === ultimo) {
+            evento.preventDefault();
+            primero.focus();
+          } else if (!intro.contains(document.activeElement)) {
+            evento.preventDefault();
+            primero.focus();
+          }
+        });
+      })();
     })();
   </script>
 </body>
